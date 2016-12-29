@@ -1,12 +1,12 @@
 //  Copyright © 2016 Insi. All rights reserved.
 
-#import "GameOptionsViewController.h"
+#import "PracticeOptionsViewController.h"
 #import "MainMenuViewController.h"
 
-@interface GameOptionsViewController ()
+@interface PracticeOptionsViewController ()
 
 @property UILabel *optionsLabel;
-@property SlideButton *changeDifficultyButton;
+@property SlideButton *changeBoardSizeButton;
 @property SlideButton *howToPlayButton;
 @property SlideButton *menuButton;
 @property SlideButton *backButton;
@@ -14,7 +14,7 @@
 @end
 
 
-@implementation GameOptionsViewController
+@implementation PracticeOptionsViewController
 
 - (id)init {
     self = [super init];
@@ -22,22 +22,22 @@
     if (self) {
         self.view.backgroundColor = UIColor.whiteColor;
         self.optionsLabel = [UILabel new];
-        self.optionsLabel.text = @"Game Options";
+        self.optionsLabel.text = @"Practice Options";
         self.optionsLabel.textAlignment = NSTextAlignmentCenter;
         self.optionsLabel.textColor = UIColor.slideBlue;
         self.optionsLabel.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:40.0];
         [self.view addSubview:self.optionsLabel];
         
-        self.changeDifficultyButton = [SlideButton new];
-        self.changeDifficultyButton.backgroundColor = UIColor.slideGrey;
-        self.changeDifficultyButton.layer.cornerRadius = 10.0;
-        self.changeDifficultyButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:23.0];
-        [self.changeDifficultyButton setTitle:@"Change Difficulty" forState:UIControlStateNormal];
-        [self.changeDifficultyButton setTitleColor:UIColor.slideBlue forState:UIControlStateNormal];
-        [self.changeDifficultyButton addTarget:self
-                                        action:@selector(changeDifficulty)
+        self.changeBoardSizeButton = [SlideButton new];
+        self.changeBoardSizeButton.backgroundColor = UIColor.slideGrey;
+        self.changeBoardSizeButton.layer.cornerRadius = 10.0;
+        self.changeBoardSizeButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:23.0];
+        [self.changeBoardSizeButton setTitle:@"Change Board Size" forState:UIControlStateNormal];
+        [self.changeBoardSizeButton setTitleColor:UIColor.slideBlue forState:UIControlStateNormal];
+        [self.changeBoardSizeButton addTarget:self
+                                        action:@selector(changeBoardSize)
                               forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:self.changeDifficultyButton];
+        [self.view addSubview:self.changeBoardSizeButton];
         
         self.howToPlayButton = [SlideButton new];
         self.howToPlayButton.backgroundColor = UIColor.slideGrey;
@@ -83,7 +83,7 @@
         make.height.mas_equalTo(60.0);
     }];
     
-    [self.changeDifficultyButton mas_remakeConstraints:^(MASConstraintMaker *make) {
+    [self.changeBoardSizeButton mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view.mas_bottom).multipliedBy(0.25);
         make.centerX.equalTo(self.view);
         make.width.mas_equalTo(250.0);
@@ -91,18 +91,18 @@
     }];
     
     [self.howToPlayButton mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.changeDifficultyButton.mas_bottom).with.offset(8.0);
-        make.centerX.width.height.equalTo(self.changeDifficultyButton);
+        make.top.equalTo(self.changeBoardSizeButton.mas_bottom).with.offset(8.0);
+        make.centerX.width.height.equalTo(self.changeBoardSizeButton);
     }];
     
     [self.menuButton mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.howToPlayButton.mas_bottom).with.offset(8.0);
-        make.centerX.width.height.equalTo(self.changeDifficultyButton);
+        make.centerX.width.height.equalTo(self.changeBoardSizeButton);
     }];
-
+    
     [self.backButton mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.menuButton.mas_bottom).with.offset(8.0);
-        make.centerX.width.height.equalTo(self.changeDifficultyButton);
+        make.centerX.width.height.equalTo(self.changeBoardSizeButton);
     }];
 }
 
@@ -110,9 +110,11 @@
     return YES;
 }
 
-- (void)changeDifficulty {
-    DifficultyViewController *difficultyScreen = [DifficultyViewController new];
-    [self presentViewController:difficultyScreen animated:YES completion:nil];
+- (void)changeBoardSize {
+    if ([self.presentingViewController isKindOfClass:[PracticeViewController class]]) {
+        [(PracticeViewController *)self.presentingViewController showChooserView];
+    }
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)showHowToPlay {

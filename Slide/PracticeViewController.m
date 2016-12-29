@@ -187,4 +187,9 @@
     [self setGridHeight:height andWidth:width];
 }
 
+- (void)showOptions {
+    PracticeOptionsViewController *optionsScreen = [PracticeOptionsViewController new];
+    [self presentViewController:optionsScreen animated:YES completion:nil];
+}
+
 @end

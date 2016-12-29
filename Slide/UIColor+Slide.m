@@ -1,37 +1,20 @@
-//
-//  @interface UIColor (ProjectName)  +(UIColor *) colorForSomeTable; +(UIColor *) colorForSomeControl; +(UIColor *) colorForSomeText;  UIColor(Slide).m
-//  Slide
-//
-//  Created by Ini on 12/26/16.
-//  Copyright © 2016 Insi. All rights reserved.
-//
+// Copyright © 2016 Insi. All rights reserved.
 
-#import "@interface UIColor (ProjectName)  +(UIColor *) colorForSomeTable; +(UIColor *) colorForSomeControl; +(UIColor *) colorForSomeText;  UIColor(Slide).h"
+#import "UIColor+Slide.h"
 
-@interface _interface_UIColor__ProjectName_____UIColor____colorForSomeTable____UIColor____colorForSomeControl____UIColor____colorForSomeText___UIColor_Slide_ ()
+@implementation UIColor (Slide)
 
-@end
++ (UIColor *)slideBlue {
+    return [UIColor colorWithRed:53.0/255.0 green:109.0/255.0 blue:168.0/255.0 alpha:1.0];
 
-@implementation _interface_UIColor__ProjectName_____UIColor____colorForSomeTable____UIColor____colorForSomeControl____UIColor____colorForSomeText___UIColor_Slide_
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
++ (UIColor *)slideGrey {
+    return [UIColor colorWithRed:238.0/255.0 green:238.0/255.0 blue:238.0/255.0 alpha:1.0];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
++ (UIColor *)slideDarkGrey {
+    return [UIColor colorWithRed:211.0/255.0 green:211.0/255.0 blue:211.0/255.0 alpha:1.0];
 }
-*/
 
 @end

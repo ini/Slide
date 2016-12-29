@@ -142,7 +142,7 @@
     [self.optionsButton setTitleColor:UIColor.slideBlue forState:UIControlStateNormal];
     self.optionsButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0];
     [self.optionsButton addTarget:self
-                           action:@selector(showGameOptions)
+                           action:@selector(showOptions)
                  forControlEvents:UIControlEventTouchUpInside];
     [self.headerContentView addSubview:self.optionsButton];
     
@@ -415,7 +415,7 @@
     _isPaused = paused;
 }
 
-- (void)showGameOptions {
+- (void)showOptions {
     GameOptionsViewController *optionsScreen = [GameOptionsViewController new];
     [self presentViewController:optionsScreen animated:YES completion:nil];
 }

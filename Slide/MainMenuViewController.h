@@ -1,13 +1,14 @@
-//
-//  MainMenuViewController.h
-//  Slide
-//
-//  Created by Ini on 12/24/16.
-//  Copyright © 2016 Insi. All rights reserved.
-//
+// Copyright © 2016 Insi. All rights reserved.
 
 #import <UIKit/UIKit.h>
+#import "DifficultyViewController.h"
+#import "GCHelper.h"
+#import "Masonry.h"
+#import "OptionsViewController.h"
+#import "SlideButton.h"
+#import "UIColor+Slide.h"
 
-@interface MainMenuViewController : UIViewController
+
+@interface MainMenuViewController : UIViewController <GKLocalPlayerListener>
 
 @end
