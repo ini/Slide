@@ -63,8 +63,8 @@ CGFloat const navigationBarHeight = 70.0;
     
     if (self) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        if ([defaults boolForKey:@"lightTheme"]) {
-            self.navigationBarTransparent = [defaults boolForKey:@"lightTheme"];
+        if ([defaults objectForKey:@"darkMenu"] != nil) {
+            self.navigationBarTransparent = ![defaults boolForKey:@"darkMenu"];
         }
         else {
             self.navigationBarTransparent = YES;
@@ -76,7 +76,7 @@ CGFloat const navigationBarHeight = 70.0;
 }
 
 - (void)updateNavigationControllerColorsWithColor:(UIColor *)color {
-    _navigationBarTransparent = self.navigationBarTransparent;
+    [self setNavigationBarTransparent:self.navigationBarTransparent];
     [self.navigationBar layoutSubviews];
     for (UIViewController __strong *vc in self.viewControllers) {
         if (![vc isEqual:self.visibleViewController]) {
