@@ -8,4 +8,6 @@
 
 @property (nonatomic) BOOL navigationBarTransparent;
 
+- (void)updateNavigationControllerColorsWithColor:(UIColor *)color;
+
 @end

@@ -2,12 +2,27 @@
 
 #import "UIColor+Slide.h"
 
+@implementation NSUserDefaults (Color)
+
+- (UIColor *)colorForKey:(NSString *)key {
+    NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+    return  [NSKeyedUnarchiver unarchiveObjectWithData:colorData];
+}
+    
+- (void)setColor:(UIColor *)color forKey:(NSString *)key {
+    NSData *colorData = [NSKeyedArchiver archivedDataWithRootObject:color];
+    [[NSUserDefaults standardUserDefaults] setObject:colorData forKey:key];
+}
+
+@end
+
+
 @implementation UIColor (Slide)
 
 + (UIColor *)slideMainColor {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if ([defaults objectForKey:@"mainColor"]) {
-        return [defaults objectForKey:@"mainColor"];
+    if ([defaults colorForKey:@"mainColor"]) {
+        return [defaults colorForKey:@"mainColor"];
     }
     return UIColor.slideBlue;
 }
@@ -35,6 +50,17 @@
 
 + (UIColor *)slideDarkGrey {
     return [UIColor colorWithRed:211.0/255.0 green:211.0/255.0 blue:211.0/255.0 alpha:1.0];
+}
+
+- (BOOL)isEqualToColor:(UIColor *)color {
+    CGFloat s_red = 0.0, s_green = 0.0, s_blue = 0.0, s_alpha = 0.0;
+    CGFloat red = 0.0, green = 0.0, blue = 0.0, alpha = 0.0;
+    
+    [self getRed:&s_red green:&s_green blue:&s_blue alpha:&s_alpha];
+    [color getRed:&red green:&green blue:&blue alpha:&alpha];
+    
+    return ((int)(s_red * 1000) == (int)(red * 1000) && (int)(s_green * 1000) == (int)(green * 1000) &&
+            (int)(s_blue * 1000) == (int)(blue * 1000) && (int)(s_alpha * 1000) == (int)(alpha * 1000));
 }
 
 - (UIImage *)image {

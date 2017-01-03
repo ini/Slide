@@ -75,14 +75,30 @@ CGFloat const navigationBarHeight = 70.0;
     return self;
 }
 
+- (void)updateNavigationControllerColorsWithColor:(UIColor *)color {
+    _navigationBarTransparent = self.navigationBarTransparent;
+    [self.navigationBar layoutSubviews];
+    for (UIViewController __strong *vc in self.viewControllers) {
+        if (![vc isEqual:self.visibleViewController]) {
+            [vc.view.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+            vc = [vc init];
+        }
+        vc.navigationController.navigationBar.tintColor =
+            (self.navigationBarTransparent) ? color : UIColor.whiteColor;
+        [self configureViewController:vc];
+    }
+}
+
 - (void)setNavigationBarTransparent:(BOOL)navigationBarTransparent {
     if (navigationBarTransparent) {
         self.navigationBar.tintColor = UIColor.slideMainColor;
+        UINavigationBar.appearance.tintColor = UIColor.slideMainColor;
         [self.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
         [self.navigationBar setShadowImage:[UIImage new]];
     }
     else {
         self.navigationBar.tintColor = UIColor.whiteColor;
+        UINavigationBar.appearance.tintColor = UIColor.whiteColor;
         [self.navigationBar setBackgroundImage:UIColor.slideMainColor.image forBarMetrics:UIBarMetricsDefault];
     }
     
@@ -124,8 +140,6 @@ CGFloat const navigationBarHeight = 70.0;
                                          style:UIBarButtonItemStylePlain
                                         target:nil
                                         action:nil];
-    viewController.navigationItem.backBarButtonItem.customView.backgroundColor = UIColor.redColor;
 }
-
 
 @end
