@@ -47,10 +47,12 @@
 		89C8388C197B191A00D4F276 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89C8386E197B191900D4F276 /* UIKit.framework */; };
 		89C83894197B191A00D4F276 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 89C83892197B191A00D4F276 /* InfoPlist.strings */; };
 		89C83896197B191A00D4F276 /* SlideTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C83895197B191A00D4F276 /* SlideTests.m */; };
+		89D21EBA1E177B2E00494D03 /* SlideRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89D21EB91E177B2E00494D03 /* SlideRootViewController.m */; };
+		89D21EBC1E18BF1200494D03 /* easy.png in Resources */ = {isa = PBXBuildFile; fileRef = 89D21EBB1E18BF1200494D03 /* easy.png */; };
+		89D21EBE1E18D1E700494D03 /* medium.png in Resources */ = {isa = PBXBuildFile; fileRef = 89D21EBD1E18D1E700494D03 /* medium.png */; };
+		89D21EC41E18D73600494D03 /* hard.png in Resources */ = {isa = PBXBuildFile; fileRef = 89D21EC31E18D73600494D03 /* hard.png */; };
+		89D21ECA1E19B33800494D03 /* ThemeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89D21EC91E19B33800494D03 /* ThemeViewController.m */; };
 		89DE7D9B19AD84410054A5C6 /* GCHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 89DE7D9819AD84410054A5C6 /* GCHelper.m */; };
-		89DE7DC419AD84AC0054A5C6 /* easy.png in Resources */ = {isa = PBXBuildFile; fileRef = 89DE7DB919AD84AC0054A5C6 /* easy.png */; };
-		89DE7DC919AD84AC0054A5C6 /* hard.png in Resources */ = {isa = PBXBuildFile; fileRef = 89DE7DBE19AD84AC0054A5C6 /* hard.png */; };
-		89DE7DCA19AD84AC0054A5C6 /* medium.png in Resources */ = {isa = PBXBuildFile; fileRef = 89DE7DBF19AD84AC0054A5C6 /* medium.png */; };
 		89E0C49A1E112DF9001DA39A /* UIColor+Slide.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E0C4991E112DF9001DA39A /* UIColor+Slide.m */; };
 		89E0C49D1E113269001DA39A /* DifficultyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E0C49C1E113269001DA39A /* DifficultyViewController.m */; };
 		89E0C4A01E1172B4001DA39A /* GridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E0C49F1E1172B4001DA39A /* GridView.m */; };
@@ -72,7 +74,7 @@
 		5CC617B2EA23AB848F23E37A /* Pods-Slide.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Slide.release.xcconfig"; path = "Pods/Target Support Files/Pods-Slide/Pods-Slide.release.xcconfig"; sourceTree = "<group>"; };
 		786B397B26635A224DE4CFE2 /* libPods-SlideTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SlideTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		891C8E9519A700FC0004CD57 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
-		891EDF6D1E0F98E3003C0575 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		891EDF6D1E0F98E3003C0575 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "../Launch Screen.storyboard"; sourceTree = "<group>"; };
 		893900821E14A1790013C40F /* SlideButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideButton.h; sourceTree = "<group>"; };
 		893900831E14A1790013C40F /* SlideButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideButton.m; sourceTree = "<group>"; };
 		893900891E14BC7D0013C40F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -138,11 +140,15 @@
 		89C83895197B191A00D4F276 /* SlideTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SlideTests.m; sourceTree = "<group>"; };
 		89CAFCDF19AAF73100BBAEB2 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		89CC6837251C139F9EC0E1A8 /* Pods-SlideTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SlideTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SlideTests/Pods-SlideTests.release.xcconfig"; sourceTree = "<group>"; };
+		89D21EB81E177B2E00494D03 /* SlideRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideRootViewController.h; sourceTree = "<group>"; };
+		89D21EB91E177B2E00494D03 /* SlideRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideRootViewController.m; sourceTree = "<group>"; };
+		89D21EBB1E18BF1200494D03 /* easy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = easy.png; sourceTree = "<group>"; };
+		89D21EBD1E18D1E700494D03 /* medium.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = medium.png; sourceTree = "<group>"; };
+		89D21EC31E18D73600494D03 /* hard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hard.png; sourceTree = "<group>"; };
+		89D21EC81E19B33800494D03 /* ThemeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemeViewController.h; sourceTree = "<group>"; };
+		89D21EC91E19B33800494D03 /* ThemeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThemeViewController.m; sourceTree = "<group>"; };
 		89DE7D9719AD84410054A5C6 /* GCHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GCHelper.h; path = "Helper Classes/GCHelper.h"; sourceTree = "<group>"; };
 		89DE7D9819AD84410054A5C6 /* GCHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GCHelper.m; path = "Helper Classes/GCHelper.m"; sourceTree = "<group>"; };
-		89DE7DB919AD84AC0054A5C6 /* easy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = easy.png; sourceTree = "<group>"; };
-		89DE7DBE19AD84AC0054A5C6 /* hard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hard.png; sourceTree = "<group>"; };
-		89DE7DBF19AD84AC0054A5C6 /* medium.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = medium.png; sourceTree = "<group>"; };
 		89E0C4981E112DF9001DA39A /* UIColor+Slide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Slide.h"; sourceTree = "<group>"; };
 		89E0C4991E112DF9001DA39A /* UIColor+Slide.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Slide.m"; sourceTree = "<group>"; };
 		89E0C49B1E113269001DA39A /* DifficultyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DifficultyViewController.h; sourceTree = "<group>"; };
@@ -218,7 +224,6 @@
 		89C8385E197B191900D4F276 = {
 			isa = PBXGroup;
 			children = (
-				891EDF6D1E0F98E3003C0575 /* Launch Screen.storyboard */,
 				89C83870197B191900D4F276 /* Slide */,
 				89C8388F197B191A00D4F276 /* SlideTests */,
 				89C83869197B191900D4F276 /* Frameworks */,
@@ -281,9 +286,14 @@
 				893900A21E15B6750013C40F /* PracticeViewController.m */,
 				893900821E14A1790013C40F /* SlideButton.h */,
 				893900831E14A1790013C40F /* SlideButton.m */,
+				89D21EB81E177B2E00494D03 /* SlideRootViewController.h */,
+				89D21EB91E177B2E00494D03 /* SlideRootViewController.m */,
+				89D21EC81E19B33800494D03 /* ThemeViewController.h */,
+				89D21EC91E19B33800494D03 /* ThemeViewController.m */,
 				89E0C4981E112DF9001DA39A /* UIColor+Slide.h */,
 				89E0C4991E112DF9001DA39A /* UIColor+Slide.m */,
 				89C83882197B191A00D4F276 /* Images.xcassets */,
+				891EDF6D1E0F98E3003C0575 /* Launch Screen.storyboard */,
 				89DE7DB819AD84AC0054A5C6 /* Images */,
 				89C83871197B191900D4F276 /* Supporting Files */,
 			);
@@ -323,9 +333,9 @@
 		89DE7DB819AD84AC0054A5C6 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				89DE7DB919AD84AC0054A5C6 /* easy.png */,
-				89DE7DBF19AD84AC0054A5C6 /* medium.png */,
-				89DE7DBE19AD84AC0054A5C6 /* hard.png */,
+				89D21EBB1E18BF1200494D03 /* easy.png */,
+				89D21EBD1E18D1E700494D03 /* medium.png */,
+				89D21EC31E18D73600494D03 /* hard.png */,
 				893900961E1509190013C40F /* howToPage1.png */,
 				8939009A1E150D100013C40F /* howToPage2.png */,
 				8939009C1E1517590013C40F /* howToPage3.png */,
@@ -442,13 +452,13 @@
 				8939009B1E150D100013C40F /* howToPage2.png in Resources */,
 				891EDF6E1E0F98E3003C0575 /* Launch Screen.storyboard in Resources */,
 				893900951E1507F40013C40F /* howToPage4.png in Resources */,
-				89DE7DC919AD84AC0054A5C6 /* hard.png in Resources */,
+				89D21EBC1E18BF1200494D03 /* easy.png in Resources */,
 				89C83875197B191900D4F276 /* InfoPlist.strings in Resources */,
+				89D21EBE1E18D1E700494D03 /* medium.png in Resources */,
 				8939009D1E1517590013C40F /* howToPage3.png in Resources */,
+				89D21EC41E18D73600494D03 /* hard.png in Resources */,
 				8939008A1E14BC7D0013C40F /* GoogleService-Info.plist in Resources */,
 				893900971E1509190013C40F /* howToPage1.png in Resources */,
-				89DE7DC419AD84AC0054A5C6 /* easy.png in Resources */,
-				89DE7DCA19AD84AC0054A5C6 /* medium.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -572,8 +582,10 @@
 				8953D8021E0F881100491D76 /* View+MASAdditions.m in Sources */,
 				8953D7FE1E0F881100491D76 /* MASViewAttribute.m in Sources */,
 				8953D7DB1E0F854200491D76 /* MainMenuViewController.m in Sources */,
+				89D21ECA1E19B33800494D03 /* ThemeViewController.m in Sources */,
 				89E0C49A1E112DF9001DA39A /* UIColor+Slide.m in Sources */,
 				8953D8011E0F881100491D76 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
+				89D21EBA1E177B2E00494D03 /* SlideRootViewController.m in Sources */,
 				89C8387B197B191900D4F276 /* AppDelegate.m in Sources */,
 				8953D8001E0F881100491D76 /* NSArray+MASAdditions.m in Sources */,
 				893900A01E15B6640013C40F /* GameViewController.m in Sources */,

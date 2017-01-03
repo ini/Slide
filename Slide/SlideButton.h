@@ -4,6 +4,14 @@
 #import "Masonry.h"
 #import "UIColor+Slide.h"
 
+typedef enum SlideButtonHighlightStyle : NSUInteger {
+    SlideButtonHighlightStyleText,
+    SlideButtonHighlightStyleBackground
+} SlideButtonHighlightStyle;
+
 @interface SlideButton : UIButton
+
+@property UIView *highlightMask;
+@property SlideButtonHighlightStyle highlightStyle;
 
 @end

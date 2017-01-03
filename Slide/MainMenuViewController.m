@@ -7,6 +7,7 @@
 
 @property UILabel *titleLabel;
 @property SlideButton *playGameButton;
+@property SlideButton *practiceModeButton;
 @property SlideButton *optionsButton;
 
 @end
@@ -22,30 +23,39 @@
         
         self.titleLabel = [UILabel new];
         self.titleLabel.text = @"Slide";
-        self.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Ultralight" size:75.0];
+        self.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:75.0];
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
-        self.titleLabel.textColor = UIColor.slideBlue;
+        self.titleLabel.textColor = UIColor.slideMainColor;
         [self.view addSubview:self.titleLabel];
 
         self.playGameButton = [SlideButton new];
-        self.playGameButton.backgroundColor = UIColor.slideGrey;
+        self.playGameButton.highlightStyle = SlideButtonHighlightStyleText;
         [self.playGameButton setTitle:@"Play Game" forState:UIControlStateNormal];
-        [self.playGameButton setTitleColor:UIColor.slideBlue forState:UIControlStateNormal];
-        self.playGameButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:25.0];
+        [self.playGameButton setTitleColor:UIColor.slideMainColor forState:UIControlStateNormal];
+        self.playGameButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:22.0];
         self.playGameButton.titleLabel.textAlignment = NSTextAlignmentCenter;
-        self.playGameButton.layer.cornerRadius = 10.0;
         [self.playGameButton addTarget:self
                                 action:@selector(presentDifficultyScreen)
                       forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:self.playGameButton];
         
+        self.practiceModeButton = [SlideButton new];
+        self.practiceModeButton.highlightStyle = SlideButtonHighlightStyleText;
+        [self.practiceModeButton setTitle:@"Practice Mode" forState:UIControlStateNormal];
+        [self.practiceModeButton setTitleColor:UIColor.slideMainColor forState:UIControlStateNormal];
+        self.practiceModeButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:22.0];
+        self.practiceModeButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+        [self.practiceModeButton addTarget:self
+                                    action:@selector(presentPracticeModeScreen)
+                          forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:self.practiceModeButton];
+        
         self.optionsButton = [SlideButton new];
-        self.optionsButton.backgroundColor = UIColor.slideGrey;
+        self.optionsButton.highlightStyle = SlideButtonHighlightStyleText;
         [self.optionsButton setTitle:@"Options" forState:UIControlStateNormal];
-        [self.optionsButton setTitleColor:UIColor.slideBlue forState:UIControlStateNormal];
-        self.optionsButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:25.0];
+        [self.optionsButton setTitleColor:UIColor.slideMainColor forState:UIControlStateNormal];
+        self.optionsButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:22.0];
         self.optionsButton.titleLabel.textAlignment = NSTextAlignmentCenter;
-        self.optionsButton.layer.cornerRadius = 10.0;
         [self.optionsButton addTarget:self
                                 action:@selector(presentOptionsScreen)
                       forControlEvents:UIControlEventTouchUpInside];
@@ -69,24 +79,31 @@
     [self.playGameButton mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view.mas_centerX);
         make.centerY.equalTo(self.view.mas_centerY).with.offset(-32.0);
-        make.width.mas_equalTo(240.0);
-        make.height.mas_equalTo(68.0);
+        make.height.mas_equalTo(35.0);
+    }];
+
+    [self.practiceModeButton mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view.mas_centerX);
+        make.top.equalTo(self.playGameButton.mas_bottom).with.offset(15.0);
+        make.height.mas_equalTo(35.0);
     }];
     
     [self.optionsButton mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view.mas_centerX);
-        make.top.equalTo(self.playGameButton.mas_bottom).with.offset(20.0);
-        make.width.mas_equalTo(240.0);
-        make.height.mas_equalTo(68.0);
+        make.top.equalTo(self.practiceModeButton.mas_bottom).with.offset(15.0);
+        make.height.mas_equalTo(35.0);
     }];
 }
 
-- (BOOL)prefersStatusBarHidden {
-    return YES;
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+    [self initGameCenter];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
     [self initGameCenter];
 }
 
@@ -112,14 +129,17 @@
 
 - (void)presentDifficultyScreen {
     DifficultyViewController *difficultyScreen = [DifficultyViewController new];
-    [difficultyScreen setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
-    [self presentViewController:difficultyScreen animated:YES completion:nil];
+    [self.navigationController pushViewController:difficultyScreen animated:YES];
+}
+
+- (void)presentPracticeModeScreen {
+    PracticeChooserViewController *practiceChooserScreen = [PracticeChooserViewController new];
+    [self.navigationController pushViewController:practiceChooserScreen animated:YES];
 }
 
 - (void)presentOptionsScreen {
     OptionsViewController *optionsScreen = [OptionsViewController new];
-    [optionsScreen setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
-    [self presentViewController:optionsScreen animated:YES completion:nil];
+    [self.navigationController pushViewController:optionsScreen animated:YES];
 }
 
 @end

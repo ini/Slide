@@ -6,6 +6,7 @@
 #import "Masonry.h"
 #import "PracticeViewController.h"
 #import "SlideButton.h"
+#import "ThemeViewController.h"
 #import "UIColor+Slide.h"
 
 

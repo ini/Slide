@@ -2,10 +2,17 @@
 
 #import "GameViewController.h"
 #import "PracticeOptionsViewController.h"
+#import "SlideRootViewController.h"
 
 
-@interface PracticeViewController : GameViewController <UIPickerViewDelegate, UIPickerViewDataSource>
+@interface PracticeChooserViewController : UIViewController
+    <UIPickerViewDelegate, UIPickerViewDataSource>
 
-- (void)showChooserView;
+- (id)initWithHeight:(int)height andWidth:(int)width;
+
+@end
+
+
+@interface PracticeViewController : GameViewController
 
 @end

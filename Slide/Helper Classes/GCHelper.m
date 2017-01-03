@@ -196,7 +196,7 @@ static GCHelper *_sharedHelper = nil;
         return [GCHelper findCurrentViewController:vc.presentedViewController];
         
     }
-    else if ([vc isKindOfClass:[UISplitViewController class]]) {
+    else if ([vc isKindOfClass:UISplitViewController.class]) {
         // Return right hand side
         UISplitViewController *svc = (UISplitViewController*) vc;
         if (svc.viewControllers.count > 0) {
@@ -206,7 +206,7 @@ static GCHelper *_sharedHelper = nil;
             return vc;
         }
     }
-    else if ([vc isKindOfClass:[UINavigationController class]]) {
+    else if ([vc isKindOfClass:UINavigationController.class]) {
         // Return top view
         UINavigationController *svc = (UINavigationController *)vc;
         if (svc.viewControllers.count > 0) {
@@ -216,7 +216,7 @@ static GCHelper *_sharedHelper = nil;
             return vc;
         }
     }
-    else if ([vc isKindOfClass:[UITabBarController class]]) {
+    else if ([vc isKindOfClass:UITabBarController.class]) {
         // Return visible view
         UITabBarController* svc = (UITabBarController*) vc;
         if (svc.viewControllers.count > 0) {

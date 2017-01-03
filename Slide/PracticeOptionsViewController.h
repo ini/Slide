@@ -8,4 +8,6 @@
 
 @interface PracticeOptionsViewController : UIViewController
 
+- (id)initWithPreviousHeight:(int)height andPreviousWidth:(int)width;
+
 @end

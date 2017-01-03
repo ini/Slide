@@ -16,7 +16,7 @@
         rvc = [HowToPlayViewController new];
     }
     else {
-        rvc = [MainMenuViewController new];
+        rvc = [SlideRootViewController new];
     }
     
     self.window.rootViewController = rvc;

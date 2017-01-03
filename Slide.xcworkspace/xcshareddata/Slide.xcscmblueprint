@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "A06B30F491FD75E329B1301FCD47500ECFBF42E6",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "A06B30F491FD75E329B1301FCD47500ECFBF42E6" : 9223372036854775807,
+    "9C0D3D14AA351605DD8EA36F4B8DAF8F77FE030C" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "53BEE449-55D4-4043-A744-C022D11FA967",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "A06B30F491FD75E329B1301FCD47500ECFBF42E6" : "Slide\/",
+    "9C0D3D14AA351605DD8EA36F4B8DAF8F77FE030C" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Slide",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Slide.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/ioguntol\/slide",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "9C0D3D14AA351605DD8EA36F4B8DAF8F77FE030C"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/ioguntol\/Slide.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "A06B30F491FD75E329B1301FCD47500ECFBF42E6"
+    }
+  ]
+}

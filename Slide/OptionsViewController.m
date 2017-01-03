@@ -5,13 +5,11 @@
 
 @interface OptionsViewController ()
 
-@property UILabel *optionsLabel;
 @property SlideButton *resetGameButton;
 @property SlideButton *howToPlayButton;
 @property SlideButton *gameCenterButton;
-@property SlideButton *practiceModeButton;
+@property SlideButton *themeButton;
 @property SlideButton *creditsButton;
-@property SlideButton *backButton;
 
 @property UIView *creditsView;
 
@@ -24,21 +22,15 @@
     self = [super init];
     
     if (self) {
+        self.title = @"Options";
         self.view.backgroundColor = UIColor.whiteColor;
-        
-        self.optionsLabel = [UILabel new];
-        self.optionsLabel.text = @"Options";
-        self.optionsLabel.textAlignment = NSTextAlignmentCenter;
-        self.optionsLabel.textColor = UIColor.slideBlue;
-        self.optionsLabel.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:40.0];
-        [self.view addSubview:self.optionsLabel];
         
         self.resetGameButton = [SlideButton new];
         self.resetGameButton.backgroundColor = UIColor.slideGrey;
         self.resetGameButton.layer.cornerRadius = 10.0;
         self.resetGameButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:23.0];
         [self.resetGameButton setTitle:@"Reset Game" forState:UIControlStateNormal];
-        [self.resetGameButton setTitleColor:UIColor.slideBlue forState:UIControlStateNormal];
+        [self.resetGameButton setTitleColor:UIColor.slideMainColor forState:UIControlStateNormal];
         [self.resetGameButton addTarget:self
                                  action:@selector(resetGame)
                        forControlEvents:UIControlEventTouchUpInside];
@@ -49,7 +41,7 @@
         self.howToPlayButton.layer.cornerRadius = 10.0;
         self.howToPlayButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:23.0];
         [self.howToPlayButton setTitle:@"How to Play" forState:UIControlStateNormal];
-        [self.howToPlayButton setTitleColor:UIColor.slideBlue forState:UIControlStateNormal];
+        [self.howToPlayButton setTitleColor:UIColor.slideMainColor forState:UIControlStateNormal];
         [self.howToPlayButton addTarget:self
                                  action:@selector(showHowToPlay)
                        forControlEvents:UIControlEventTouchUpInside];
@@ -60,44 +52,33 @@
         self.gameCenterButton.layer.cornerRadius = 10.0;
         self.gameCenterButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:23.0];
         [self.gameCenterButton setTitle:@"Game Center" forState:UIControlStateNormal];
-        [self.gameCenterButton setTitleColor:UIColor.slideBlue forState:UIControlStateNormal];
+        [self.gameCenterButton setTitleColor:UIColor.slideMainColor forState:UIControlStateNormal];
         [self.gameCenterButton addTarget:self
                                   action:@selector(showGameCenter)
                         forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:self.gameCenterButton];
         
-        self.practiceModeButton = [SlideButton new];
-        self.practiceModeButton.backgroundColor = UIColor.slideGrey;
-        self.practiceModeButton.layer.cornerRadius = 10.0;
-        self.practiceModeButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:23.0];
-        [self.practiceModeButton setTitle:@"Practice Mode" forState:UIControlStateNormal];
-        [self.practiceModeButton setTitleColor:UIColor.slideBlue forState:UIControlStateNormal];
-        [self.practiceModeButton addTarget:self
-                                    action:@selector(showPracticeMode)
+        self.themeButton = [SlideButton new];
+        self.themeButton.backgroundColor = UIColor.slideGrey;
+        self.themeButton.layer.cornerRadius = 10.0;
+        self.themeButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:23.0];
+        [self.themeButton setTitle:@"Theme" forState:UIControlStateNormal];
+        [self.themeButton setTitleColor:UIColor.slideMainColor forState:UIControlStateNormal];
+        [self.themeButton addTarget:self
+                                    action:@selector(showThemeScreen)
                           forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:self.practiceModeButton];
+        [self.view addSubview:self.themeButton];
         
         self.creditsButton = [SlideButton new];
         self.creditsButton.backgroundColor = UIColor.slideGrey;
         self.creditsButton.layer.cornerRadius = 10.0;
         self.creditsButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:23.0];
         [self.creditsButton setTitle:@"Credits" forState:UIControlStateNormal];
-        [self.creditsButton setTitleColor:UIColor.slideBlue forState:UIControlStateNormal];
+        [self.creditsButton setTitleColor:UIColor.slideMainColor forState:UIControlStateNormal];
         [self.creditsButton addTarget:self
                                action:@selector(showCredits)
                      forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:self.creditsButton];
-        
-        self.backButton = [SlideButton new];
-        self.backButton.backgroundColor = UIColor.slideGrey;
-        self.backButton.layer.cornerRadius = 10.0;
-        self.backButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:23.0];
-        [self.backButton setTitle:@"Back" forState:UIControlStateNormal];
-        [self.backButton setTitleColor:UIColor.slideBlue forState:UIControlStateNormal];
-        [self.backButton addTarget:self
-                            action:@selector(back)
-                  forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:self.backButton];
         
         [self updateViewConstraints];
     }
@@ -106,13 +87,6 @@
 
 - (void)updateViewConstraints {
     [super updateViewConstraints];
-    
-    [self.optionsLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view.mas_bottom).multipliedBy(0.05);
-        make.centerX.equalTo(self.view);
-        make.width.mas_equalTo(320.0);
-        make.height.mas_equalTo(60.0);
-    }];
     
     [self.resetGameButton mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view.mas_bottom).multipliedBy(0.2);
@@ -131,24 +105,15 @@
         make.centerX.width.height.equalTo(self.resetGameButton);
     }];
     
-    [self.practiceModeButton mas_remakeConstraints:^(MASConstraintMaker *make) {
+    [self.themeButton mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.gameCenterButton.mas_bottom).with.offset(8.0);
         make.centerX.width.height.equalTo(self.resetGameButton);
     }];
     
     [self.creditsButton mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.practiceModeButton.mas_bottom).with.offset(8.0);
+        make.top.equalTo(self.themeButton.mas_bottom).with.offset(8.0);
         make.centerX.width.height.equalTo(self.resetGameButton);
     }];
-    
-    [self.backButton mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.creditsButton.mas_bottom).with.offset(8.0);
-        make.centerX.width.height.equalTo(self.resetGameButton);
-    }];
-}
-
-- (BOOL)prefersStatusBarHidden {
-    return YES;
 }
 
 - (void)resetGame {
@@ -222,75 +187,44 @@
     }
 }
 
-- (void)showPracticeMode {
-    PracticeViewController *practiceScreen = [PracticeViewController new];
-    [self presentViewController:practiceScreen animated:YES completion:nil];
+- (void)showThemeScreen {
+    ThemeViewController *themeScreen = [ThemeViewController new];
+    [self.navigationController pushViewController:themeScreen animated:YES];
 }
 
 - (void)showCredits {
-    self.creditsView = [UIView new];
-    self.creditsView.backgroundColor = UIColor.whiteColor;
-    [self.view addSubview:self.creditsView];
-    
-    [self.creditsView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
-    }];
-    
-    SlideButton *creditsBackButton = [SlideButton new];
-    creditsBackButton = [SlideButton new];
-    creditsBackButton.backgroundColor = UIColor.slideGrey;
-    creditsBackButton.layer.cornerRadius = 10.0;
-    creditsBackButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:23.0];
-    [creditsBackButton setTitle:@"Back" forState:UIControlStateNormal];
-    [creditsBackButton setTitleColor:UIColor.slideBlue forState:UIControlStateNormal];
-    [creditsBackButton addTarget:self
-                        action:@selector(back)
-              forControlEvents:UIControlEventTouchUpInside];
-    
-    UITapGestureRecognizer *creditsBackButtonRecognizer = [UITapGestureRecognizer new];
-    [creditsBackButtonRecognizer addTarget:self action:@selector(dismissCredits)];
-    [creditsBackButton addGestureRecognizer:creditsBackButtonRecognizer];
-    [self.creditsView addSubview:creditsBackButton];
-    
-    [creditsBackButton mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.backButton);
-    }];
+    UIViewController *creditsViewController = [UIViewController new];
+    creditsViewController.title = @"Credits";
+    creditsViewController.view.backgroundColor = UIColor.whiteColor;
     
     UILabel *versionLabel = [UILabel new];
     NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
     versionLabel.text = [NSString stringWithFormat:@"Version %@", version];
     versionLabel.textAlignment = NSTextAlignmentCenter;
-    versionLabel.textColor = UIColor.slideBlue;
+    versionLabel.textColor = UIColor.slideMainColor;
     versionLabel.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:28.0];
-    [self.creditsView addSubview:versionLabel];
+    [creditsViewController.view addSubview:versionLabel];
     
     [versionLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.creditsView.mas_bottom).multipliedBy(0.2);
-        make.centerX.equalTo(self.creditsView);
+        make.top.equalTo(creditsViewController.view.mas_bottom).multipliedBy(0.2);
+        make.centerX.equalTo(creditsViewController.view);
         make.width.mas_equalTo(280.0);
         make.height.mas_equalTo(48.0);
     }];
     
     UILabel *copyrightLabel = [UILabel new];
-    copyrightLabel.text = @"© Ini Oguntola, 2016";
+    copyrightLabel.text = @"© Ini Oguntola, 2017";
     copyrightLabel.textAlignment = NSTextAlignmentCenter;
-    copyrightLabel.textColor = UIColor.slideBlue;
+    copyrightLabel.textColor = UIColor.slideMainColor;
     copyrightLabel.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:22.0];
-    [self.creditsView addSubview:copyrightLabel];
+    [creditsViewController.view addSubview:copyrightLabel];
     
     [copyrightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(versionLabel.mas_bottom);
         make.width.height.centerX.equalTo(versionLabel);
     }];
-}
-
-- (void)dismissCredits {
-    [self.creditsView removeFromSuperview];
-    self.creditsView = nil;
-}
-
-- (void)back {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    [self.navigationController pushViewController:creditsViewController animated:YES];
 }
 
 @end

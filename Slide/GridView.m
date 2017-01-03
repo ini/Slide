@@ -29,7 +29,7 @@ CGFloat const blockInset = 10.0f;
     
     self.numberLabel = [UILabel new];
     self.numberLabel.text = [NSString stringWithFormat:@"%d", num];
-    self.numberLabel.textColor = UIColor.slideBlue;
+    self.numberLabel.textColor = UIColor.slideMainColor;
     self.numberLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:self.numberLabel];
     
@@ -71,7 +71,7 @@ CGFloat const blockInset = 10.0f;
     self = [super init];
     
     if (self) {
-        self.backgroundColor = UIColor.slideBlue;
+        self.backgroundColor = UIColor.slideMainColor;
         self.layer.cornerRadius = 10.0;
         self.height = height;
         self.width = width;
@@ -216,13 +216,17 @@ CGFloat const blockInset = 10.0f;
         if (col < self.emptySquareCol) {
             direction = UISwipeGestureRecognizerDirectionRight;
             for (int c = col; c < self.emptySquareCol; c++) {
-                [blocksToMove addObject:self.grid[row][c]];
+                if ([self isValidIndex:row andCol:c]) {
+                    [blocksToMove addObject:self.grid[row][c]];
+                }
             }
         }
         else if (col > self.emptySquareCol) {
             direction = UISwipeGestureRecognizerDirectionLeft;
             for (int c = self.emptySquareCol + 1; c <= col; c++) {
-                [blocksToMove addObject:self.grid[row][c]];
+                if ([self isValidIndex:row andCol:c]) {
+                    [blocksToMove addObject:self.grid[row][c]];
+                }
             }
         }
     }
@@ -230,18 +234,22 @@ CGFloat const blockInset = 10.0f;
         if (row < self.emptySquareRow) {
             direction = UISwipeGestureRecognizerDirectionDown;
             for (int r = row; r < self.emptySquareRow; r++) {
-                [blocksToMove addObject:self.grid[r][col]];
+                if ([self isValidIndex:r andCol:col]) {
+                    [blocksToMove addObject:self.grid[r][col]];
+                }
             }
         }
         else if (row > self.emptySquareRow) {
             direction = UISwipeGestureRecognizerDirectionUp;
             for (int r = row; r > self.emptySquareRow; r--) {
-                [blocksToMove addObject:self.grid[r][col]];
+                if ([self isValidIndex:r andCol:col]) {
+                    [blocksToMove addObject:self.grid[r][col]];
+                }
             }
         }
     }
     
-    if (direction) {
+    if (direction && blocksToMove.count > 0) {
         [self moveBlocks:blocksToMove inDirection:direction];
         self.emptySquareRow = row;
         self.emptySquareCol = col;
@@ -319,7 +327,7 @@ CGFloat const blockInset = 10.0f;
     [UIView animateWithDuration:0.6 animations:^{
         for (int r = 0; r < self.height; r++) {
             for (int c = 0; c < self.width; c++) {
-                if ([self.grid[r][c] isKindOfClass:[BlockView class]]) {
+                if ([self.grid[r][c] isKindOfClass:BlockView.class]) {
                     BlockView *block = self.grid[r][c];
                     block.frame = [self blockFrameFromRow:block.row andCol:block.col];
                 }
@@ -368,7 +376,6 @@ CGFloat const blockInset = 10.0f;
         while (direction == reversePreviousDirection || [forbiddenDirections containsObject:@(direction)]) {
             direction = directions[(arc4random() % 4)];
         }
-        
         if (direction == UISwipeGestureRecognizerDirectionLeft) {
             grid[emptySquareRow][emptySquareCol] = grid[emptySquareRow][emptySquareCol + 1];
             grid[emptySquareRow][emptySquareCol + 1] = [NSNull null];
@@ -381,7 +388,7 @@ CGFloat const blockInset = 10.0f;
             emptySquareCol -= 1;
             reversePreviousDirection = UISwipeGestureRecognizerDirectionLeft;
         }
-        if (direction == UISwipeGestureRecognizerDirectionUp) {
+        else if (direction == UISwipeGestureRecognizerDirectionUp) {
             grid[emptySquareRow][emptySquareCol] = grid[emptySquareRow + 1][emptySquareCol];
             grid[emptySquareRow + 1][emptySquareCol] = [NSNull null];
             emptySquareRow += 1;
@@ -398,7 +405,7 @@ CGFloat const blockInset = 10.0f;
     // Update block row and column information
     for (int r = 0; r < self.height; r++) {
         for (int c = 0; c < self.width; c++) {
-            if ([grid[r][c] isKindOfClass:[BlockView class]]) {
+            if ([grid[r][c] isKindOfClass:BlockView.class]) {
                 BlockView *block = grid[r][c];
                 block.row = r;
                 block.col = c;
@@ -421,6 +428,10 @@ CGFloat const blockInset = 10.0f;
 }
 
 #pragma mark - Helper Methods
+
+- (BOOL)isValidIndex:(int)row andCol:(int)col {
+    return (0 <= row && row < self.height && 0 <= col && col < self.width);
+}
 
 - (CGRect)blockFrameFromRow:(int)row andCol:(int)col {
     return CGRectMake(col * (self.blockSize + blockInset) + blockInset, row * (self.blockSize + blockInset) + blockInset, self.blockSize, self.blockSize);

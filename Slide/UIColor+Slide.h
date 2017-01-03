@@ -4,8 +4,11 @@
 
 @interface UIColor (Slide)
 
++ (UIColor *)slideMainColor;
 + (UIColor *)slideBlue;
 + (UIColor *)slideGrey;
 + (UIColor *)slideDarkGrey;
+- (UIImage *)image;
+
 
 @end

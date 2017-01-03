@@ -4,6 +4,7 @@
 #import "Masonry.h"
 #import "GameViewController.h"
 #import "SlideButton.h"
+#import "SlideRootViewController.h"
 #import "UIColor+Slide.h"
 
 

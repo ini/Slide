@@ -5,8 +5,6 @@
 
 @interface SlideButton ()
 
-@property UIView *highlightMask;
-
 @end
 
 
@@ -17,6 +15,7 @@
     
     if (self) {
         self.clipsToBounds = YES;
+        self.highlightStyle = SlideButtonHighlightStyleBackground;
         self.highlightMask = [UIView new];
         self.highlightMask.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.1];
         self.highlightMask.hidden = YES;
@@ -33,13 +32,22 @@
     }];
 }
 
--(void)setHighlighted:(BOOL)highlighted {
+- (void)setHighlighted:(BOOL)highlighted {
     [super setHighlighted:highlighted];
-    if (highlighted) {
-        self.highlightMask.hidden = NO;
+    if (self.highlightStyle == SlideButtonHighlightStyleBackground) {
+        self.highlightMask.hidden = !highlighted;
     }
-    else {
-        self.highlightMask.hidden = YES;
+    else if (self.highlightStyle == SlideButtonHighlightStyleText && highlighted) {
+        if ([self.titleLabel.font.fontName isEqualToString:@"HelveticaNeue-Light"]) {
+            self.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue"
+                                                   size:self.titleLabel.font.pointSize];
+        }
+    }
+    else if (self.highlightStyle == SlideButtonHighlightStyleText && !highlighted) {
+        if ([self.titleLabel.font.fontName isEqualToString:@"HelveticaNeue"]) {
+            self.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light"
+                                                   size:self.titleLabel.font.pointSize];
+        }
     }
 }
 

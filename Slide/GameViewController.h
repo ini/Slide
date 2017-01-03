@@ -1,11 +1,9 @@
 //  Copyright (c) 2016 Insi. All rights reserved.
 
 #import <UIKit/UIKit.h>
-
 #import "GameOptionsViewController.h"
 #import "GCHelper.h"
 #import "GridView.h"
-#import "SlideButton.h"
 #import "UIColor+Slide.h"
 
 @import GoogleMobileAds;

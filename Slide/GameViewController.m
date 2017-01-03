@@ -35,14 +35,13 @@
         self.isPaused = NO;
         self.timeElapsed = 0;
         self.numMoves = 0;
-        
         [self initHeader];
         
         self.descriptionLabel = [UILabel new];
         self.descriptionLabel.text = @"Put the numbers back in order!";
         self.descriptionLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:13.0];
         self.descriptionLabel.textAlignment = NSTextAlignmentCenter;
-        self.descriptionLabel.textColor = UIColor.slideBlue;
+        self.descriptionLabel.textColor = UIColor.slideMainColor;
         [self.view addSubview:self.descriptionLabel];
         
         self.gridContainerView = [UIView new];
@@ -54,8 +53,11 @@
         [self.gridContainerView addSubview:self.grid];
         
         self.adBanner = [[GADBannerView alloc] initWithAdSize:kGADAdSizeSmartBannerPortrait];
-        [self.view addSubview:self.adBanner];
+        // [self.view addSubview:self.adBanner];
         
+        // Disable multiple touches
+        [self.view.subviews makeObjectsPerformSelector:@selector(setExclusiveTouch:)
+                                            withObject:[NSNumber numberWithBool:YES]];
         [self updateViewConstraints];
     }
     
@@ -89,6 +91,7 @@
 - (void)initHeader {
     self.header = [UIScrollView new];
     self.header.alwaysBounceVertical = YES;
+    self.header.showsVerticalScrollIndicator = NO;
     self.header.delegate = self;
     [self.view addSubview:self.header];
     
@@ -97,27 +100,27 @@
     
     self.yourBestLabel = [UILabel new];
     self.yourBestLabel.text = @"Your Best:";
-    self.yourBestLabel.textColor = UIColor.slideBlue;
+    self.yourBestLabel.textColor = UIColor.slideMainColor;
     self.yourBestLabel.textAlignment = NSTextAlignmentLeft;
     self.yourBestLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:14.0];
     [self.headerContentView addSubview:self.yourBestLabel];
     
     self.highScoresLabel = [UILabel new];
     self.highScoresLabel.text = [NSString stringWithFormat:@"%d moves in %.02f seconds", 0, 0.00];
-    self.highScoresLabel.textColor = UIColor.slideBlue;
+    self.highScoresLabel.textColor = UIColor.slideMainColor;
     self.highScoresLabel.textAlignment = NSTextAlignmentLeft;
     self.highScoresLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14.0];
     [self.headerContentView addSubview:self.highScoresLabel];
     
     self.horizontalDivider = [UIView new];
-    self.horizontalDivider.backgroundColor = UIColor.slideBlue;
+    self.horizontalDivider.backgroundColor = UIColor.slideMainColor;
     [self.headerContentView addSubview:self.horizontalDivider];
     
     self.startOverButton = [SlideButton new];
     self.startOverButton.backgroundColor = UIColor.slideGrey;
     self.startOverButton.layer.cornerRadius = 10.0;
     [self.startOverButton setTitle:@"START OVER" forState:UIControlStateNormal];
-    [self.startOverButton setTitleColor:UIColor.slideBlue forState:UIControlStateNormal];
+    [self.startOverButton setTitleColor:UIColor.slideMainColor forState:UIControlStateNormal];
     self.startOverButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0];
     [self.startOverButton addTarget:self
                              action:@selector(startOver)
@@ -128,7 +131,7 @@
     self.pauseButton.backgroundColor = UIColor.slideGrey;
     self.pauseButton.layer.cornerRadius = 10.0;
     [self.pauseButton setTitle:@"PAUSE" forState:UIControlStateNormal];
-    [self.pauseButton setTitleColor:UIColor.slideBlue forState:UIControlStateNormal];
+    [self.pauseButton setTitleColor:UIColor.slideMainColor forState:UIControlStateNormal];
     self.pauseButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0];
     [self.pauseButton addTarget:self
                          action:@selector(pauseButtonPressed)
@@ -139,7 +142,7 @@
     self.optionsButton.backgroundColor = UIColor.slideGrey;
     self.optionsButton.layer.cornerRadius = 10.0;
     [self.optionsButton setTitle:@"OPTIONS" forState:UIControlStateNormal];
-    [self.optionsButton setTitleColor:UIColor.slideBlue forState:UIControlStateNormal];
+    [self.optionsButton setTitleColor:UIColor.slideMainColor forState:UIControlStateNormal];
     self.optionsButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0];
     [self.optionsButton addTarget:self
                            action:@selector(showOptions)
@@ -151,15 +154,20 @@
     self.statusView.layer.cornerRadius = 10.0;
     [self.headerContentView addSubview:self.statusView];
     
+    UITapGestureRecognizer *tapGestureRecognizer =
+        [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pauseButtonPressed)];
+    tapGestureRecognizer.cancelsTouchesInView = NO;
+    [self.statusView addGestureRecognizer:tapGestureRecognizer];
+    
     self.timeLabel = [UILabel new];
     self.timeLabel.text = @"0.00";
-    self.timeLabel.textColor = UIColor.slideBlue;
+    self.timeLabel.textColor = UIColor.slideMainColor;
     self.timeLabel.textAlignment = NSTextAlignmentCenter;
     [self.statusView addSubview:self.timeLabel];
     
     self.movesLabel = [UILabel new];
     self.movesLabel.text = @"No moves";
-    self.movesLabel.textColor = UIColor.slideBlue;
+    self.movesLabel.textColor = UIColor.slideMainColor;
     self.movesLabel.textAlignment = NSTextAlignmentCenter;
     self.movesLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16.0];
     [self.statusView addSubview:self.movesLabel];
@@ -281,13 +289,13 @@
     }];
 }
 
-- (BOOL)prefersStatusBarHidden {
-    return YES;
-}
-
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     self.header.contentSize = self.headerContentView.frame.size;
+    if (self.headerContentView.frame.size.height == self.header.frame.size.height) {
+        self.header.alwaysBounceVertical = NO;
+    }
+
 }
 
 - (void)viewDidLoad {
@@ -298,6 +306,7 @@
     [super viewWillAppear:animated];
     [self updateHighScoresLabel];
     [self updateGameCenterAchievements];
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(pause)
                                                  name:UIApplicationWillResignActiveNotification
@@ -311,14 +320,13 @@
     self.adBanner.rootViewController = self;
     
     GADRequest *request = [GADRequest request];
-    request.testDevices = @[kGADSimulatorID];
     [self.adBanner loadRequest:request];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    if ([self isBeingPresented] || [self isMovingToParentViewController]) {
+    if (!self.gameInProgress && (self.isBeingPresented || self.isMovingToParentViewController)) {
         [self.grid performSelector:@selector(scramble) withObject:nil afterDelay:1.0];
         CGPoint bottomOffset =
             CGPointMake(0, self.header.contentSize.height - self.header.bounds.size.height);
@@ -351,6 +359,7 @@
 - (void)stopTimer {
     CFAbsoluteTime currentTime = CFAbsoluteTimeGetCurrent();
     self.timeElapsed += currentTime - self.timerStartTime;
+    self.timeLabel.text = [self formattedTime:self.timeElapsed];
     [self.timer invalidate];
 }
 
@@ -416,8 +425,18 @@
 }
 
 - (void)showOptions {
-    GameOptionsViewController *optionsScreen = [GameOptionsViewController new];
-    [self presentViewController:optionsScreen animated:YES completion:nil];
+    if (self.header.contentOffset.y != -self.header.contentInset.top) {
+        [UIView animateWithDuration:0.3 animations:^{
+            self.header.contentOffset = CGPointMake(0, -self.header.contentInset.top);
+        } completion:^(BOOL finished) {
+            GameOptionsViewController *optionsScreen = [GameOptionsViewController new];
+            [self.navigationController pushViewController:optionsScreen animated:YES];
+        }];
+    }
+    else {
+        GameOptionsViewController *optionsScreen = [GameOptionsViewController new];
+        [self.navigationController pushViewController:optionsScreen animated:YES];
+    }
 }
 
 #pragma mark - GridViewDelegate Methods
@@ -435,19 +454,19 @@
 }
 
 - (void)gridSolved {
-    [self stopTimer];
-    self.gameInProgress = NO;
-    [self showVictoryView];
+    if (self.gameInProgress) {
+        [self stopTimer];
+        self.gameInProgress = NO;
+        [self showVictoryView];
+    }
 }
 
 #pragma mark - UIScrollViewDelegate Methods
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     CGPoint bottomOffset =
-    CGPointMake(0, self.header.contentSize.height - self.header.bounds.size.height);
-    if (self.header.contentOffset.y != bottomOffset.y && self.gameInProgress) {
-        self.isPaused = YES;
-    }
+        CGPointMake(0, self.header.contentSize.height - self.header.bounds.size.height);
+    self.isPaused = (self.header.contentOffset.y != bottomOffset.y && self.gameInProgress);
 }
 
 #pragma mark - End of Game
@@ -474,7 +493,7 @@
     if (isRecord) {
         UILabel *recordLabel = [UILabel new];
         recordLabel.text = @"New Record!";
-        recordLabel.textColor = UIColor.slideBlue;
+        recordLabel.textColor = UIColor.slideMainColor;
         recordLabel.textAlignment = NSTextAlignmentCenter;
         recordLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:15.0];
         [dialogView addSubview:recordLabel];
@@ -489,7 +508,7 @@
     
     UILabel *youWinLabel = [UILabel new];
     youWinLabel.text = @"You Win!";
-    youWinLabel.textColor = UIColor.slideBlue;
+    youWinLabel.textColor = UIColor.slideMainColor;
     youWinLabel.textAlignment = NSTextAlignmentCenter;
     youWinLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:44.0];
     [dialogView addSubview:youWinLabel];
@@ -503,7 +522,7 @@
     UILabel *statsLabel = [UILabel new];
     statsLabel.text =
         [NSString stringWithFormat:@"%d moves in %@", self.numMoves, [self formattedTime:self.timeElapsed]];
-    statsLabel.textColor = UIColor.slideBlue;
+    statsLabel.textColor = UIColor.slideMainColor;
     statsLabel.textAlignment = NSTextAlignmentCenter;
     statsLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16.0];
     [dialogView addSubview:statsLabel];
@@ -519,7 +538,7 @@
     playAgainButton.layer.cornerRadius = 10.0;
     playAgainButton.titleLabel.font = [UIFont fontWithName:@"System" size:15.0];
     [playAgainButton setTitle:@"Play Again" forState:UIControlStateNormal];
-    [playAgainButton setTitleColor:UIColor.slideBlue forState:UIControlStateNormal];
+    [playAgainButton setTitleColor:UIColor.slideMainColor forState:UIControlStateNormal];
     [playAgainButton addTarget:self
                         action:@selector(playAgain)
               forControlEvents:UIControlEventTouchUpInside];
@@ -537,7 +556,7 @@
     quitButton.layer.cornerRadius = 10.0;
     quitButton.titleLabel.font = [UIFont fontWithName:@"System" size:15.0];
     [quitButton setTitle:@"Quit" forState:UIControlStateNormal];
-    [quitButton setTitleColor:UIColor.slideBlue forState:UIControlStateNormal];
+    [quitButton setTitleColor:UIColor.slideMainColor forState:UIControlStateNormal];
     [quitButton addTarget:self action:@selector(quit) forControlEvents:UIControlEventTouchUpInside];
     [dialogView addSubview:quitButton];
     

@@ -25,6 +25,7 @@
 @implementation PageContentViewController
 
 - (id)initWithIndex:(NSUInteger)index pageViewController:(UIPageViewController *)pageViewController {
+    if (index >= PageContentViewController.pageTitles.count) return nil;
     self = [super init];
     
     if (self) {
@@ -34,7 +35,7 @@
         
         // Get the page control of the UIPageViewController
         for (UIView *view in self.pageViewController.view.subviews) {
-            if ([view isKindOfClass:[UIPageControl class]]) {
+            if ([view isKindOfClass:UIPageControl.class]) {
                 self.pageControl = (UIPageControl *)view;
             }
         }
@@ -42,7 +43,7 @@
         
         self.titleLabel = [UILabel new];
         self.titleLabel.text = PageContentViewController.pageTitles[self.index];
-        self.titleLabel.textColor = UIColor.slideBlue;
+        self.titleLabel.textColor = UIColor.slideMainColor;
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
         self.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:24.0];
         self.titleLabel.numberOfLines = 2;
@@ -59,13 +60,14 @@
         self.letsPlayButton.alpha = 0.0;
         self.letsPlayButton.titleLabel.font =
             [UIFont fontWithName:@"HelveticaNeue-Medium" size:22.0];
-        self.letsPlayButton.hidden = (self.index != PageContentViewController.pageTitles.count - 1);
         [self.letsPlayButton setTitle:@"Let's Play" forState:UIControlStateNormal];
-        [self.letsPlayButton setTitleColor:UIColor.slideBlue forState:UIControlStateNormal];
+        [self.letsPlayButton setTitleColor:UIColor.slideMainColor forState:UIControlStateNormal];
         [self.letsPlayButton addTarget:self
                        action:@selector(showMainMenu)
              forControlEvents:UIControlEventTouchUpInside];
-        [self.pageViewController.view addSubview:self.letsPlayButton];
+        if (self.index == PageContentViewController.pageTitles.count - 1) {
+            [self.pageViewController.view addSubview:self.letsPlayButton];
+        }
         
         [self updateViewConstraints];
     }
@@ -96,13 +98,7 @@
 }
 
 - (void)addGestureRecognizers {
-    if (self.index == 0 || self.index == 2) {
-        UISwipeGestureRecognizer *left = [UISwipeGestureRecognizer new];
-        left.direction = UISwipeGestureRecognizerDirectionLeft;
-        [left addTarget:self action:@selector(goToNextViewController)];
-        [self.view addGestureRecognizer:left];
-    }
-    else if (self.index == 1) {
+    if (self.index == 1) {
         UISwipeGestureRecognizer *up = [UISwipeGestureRecognizer new];
         up.direction = UISwipeGestureRecognizerDirectionUp;
         [up addTarget:self action:@selector(goToNextViewController)];
@@ -113,8 +109,8 @@
 - (void)goToNextViewController {
     if (self.index + 1 < PageContentViewController.pageTitles.count) {
         PageContentViewController *nextViewController =
-        [[PageContentViewController alloc] initWithIndex:(self.index + 1)
-                                      pageViewController:self.pageViewController];
+            [[PageContentViewController alloc] initWithIndex:(self.index + 1)
+                                          pageViewController:self.pageViewController];
         [self.pageViewController setViewControllers:@[nextViewController]
                                           direction:UIPageViewControllerNavigationDirectionForward
                                            animated:YES
@@ -123,24 +119,37 @@
     }
 }
 
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+}
+
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if (!self.letsPlayButton.hidden) {
+    [self.pageControl setCurrentPage:self.index];
+    if (self.index == PageContentViewController.pageTitles.count - 1) {
         // Fade out the page control
         [UIView animateWithDuration:0.5 animations:^{
             self.pageControl.alpha = 0.0;
         } completion:^(BOOL finished) {
             // Animate in the "Let's Play" button on the last screen
+            [self.pageViewController.view addSubview:self.letsPlayButton];
+            [self updateViewConstraints];
             [UIView animateWithDuration:1.0 animations:^{ self.letsPlayButton.alpha = 1.0; }];
         }];
-        
-        // Disable scrolling once the last screen is reached
-        for (UIView *view in self.pageViewController.view.subviews) {
-            if ([view isKindOfClass:UIScrollView.class]) {
-                UIScrollView *scrollView = (UIScrollView *)view;
-                scrollView.scrollEnabled = NO;
-            }
-        }
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if (self.index == PageContentViewController.pageTitles.count - 1) {
+        // Animate out the "Let's Play" button on the last screen and bring back the page control
+        [UIView animateWithDuration:0.4 animations:^{
+            self.letsPlayButton.alpha = 0.0;
+            self.pageControl.alpha = 1.0;
+        } completion:^(BOOL finished) {
+            [self.letsPlayButton removeFromSuperview];
+        }];
     }
 }
 
@@ -148,9 +157,8 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setBool:NO forKey:@"firstTime"];
     
-    MainMenuViewController *menuScreen = [MainMenuViewController new];
-    [menuScreen setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
-    [self presentViewController:menuScreen animated:YES completion:nil];
+    SlideRootViewController *viewController = [SlideRootViewController new];
+    [self presentViewController:viewController animated:YES completion:nil];
 }
 
 + (NSArray *)pageTitles {
@@ -177,10 +185,6 @@
 
 @implementation HowToPlayViewController
 
-- (BOOL)prefersStatusBarHidden {
-    return YES;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -191,16 +195,18 @@
     
     // Customize the page indicator colors
     for (UIView *view in self.pageController.view.subviews) {
-        if ([view isKindOfClass:[UIPageControl class]]) {
+        if ([view isKindOfClass:UIPageControl.class]) {
             UIPageControl *pc = (UIPageControl *)view;
             pc.pageIndicatorTintColor = UIColor.slideGrey;
             pc.currentPageIndicatorTintColor = UIColor.slideDarkGrey;
+            pc.defersCurrentPageDisplay = YES;
         }
     }
     
     PageContentViewController *initialViewController = [self viewControllerAtIndex:0];
     [self.pageController setViewControllers:@[initialViewController]
-                                  direction:UIPageViewControllerNavigationDirectionForward animated:NO
+                                  direction:UIPageViewControllerNavigationDirectionForward
+                                   animated:NO
                                  completion:nil];
     [self addChildViewController:self.pageController];
     [self.view addSubview:self.pageController.view];
