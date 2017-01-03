@@ -35,6 +35,10 @@
 
 @property NSArray *colors;
 @property NSArray *colorNames;
+
+@property UIView *modeChooser;
+@property UILabel *darkMenuLabel;
+@property UISwitch *darkMenuSwitch;
 @property UICollectionView *collectionView;
 
 @end
@@ -53,6 +57,19 @@
         self.colors = @[UIColor.slideBlue, UIColor.slideRed, UIColor.slideGreen, UIColor.slidePink, UIColor.blackColor];
         self.colorNames = @[@"Blue", @"Red", @"Green", @"Pink", @"Black"];
 
+        self.darkMenuLabel = [UILabel new];
+        self.darkMenuLabel.text = @"Dark Menu Bar";
+        self.darkMenuLabel.textColor = [UIColor colorWithWhite:0.4 alpha:1.0];
+        self.darkMenuLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:18.0];
+        [self.view addSubview:self.darkMenuLabel];
+        
+        self.darkMenuSwitch = [UISwitch new];
+        self.darkMenuSwitch.onTintColor = UIColor.slideMainColor;
+        [self.darkMenuSwitch addTarget:self
+                                action:@selector(setDarkMenu:)
+                      forControlEvents:UIControlEventValueChanged];
+        [self.view addSubview:self.darkMenuSwitch];
+        
         UICollectionViewFlowLayout* flowLayout = [ThemeFlowLayout new];
         flowLayout.itemSize = CGSizeMake(150.0, 170.0);
         flowLayout.minimumInteritemSpacing = 10.0;
@@ -64,15 +81,15 @@
         self.collectionView.contentInset = UIEdgeInsetsZero;
         self.collectionView.dataSource = self;
         self.collectionView.delegate = self;
+        self.collectionView.showsVerticalScrollIndicator = YES;
         [self.collectionView registerClass:UICollectionViewCell.class
-                forCellWithReuseIdentifier:@"modeCell"];
-        [self.collectionView registerClass:UICollectionViewCell.class
-                forCellWithReuseIdentifier:@"colorCell"];
+                forCellWithReuseIdentifier:@"cell"];
         [self.view addSubview:self.collectionView];
         
+        // Disable multiple touches
+        [self.view.subviews makeObjectsPerformSelector:@selector(setExclusiveTouch:)
+                                            withObject:[NSNumber numberWithBool:YES]];
         [self updateViewConstraints];
-        [self.collectionView.collectionViewLayout collectionViewContentSize];
-        [self.collectionView reloadData];
     }
     
     return self;
@@ -81,8 +98,24 @@
 - (void)updateViewConstraints {
     [super updateViewConstraints];
     
+    UICollectionViewFlowLayout *flowLayout =
+        (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
+    CGFloat centerOffset = (flowLayout.itemSize.width + 100.0 + flowLayout.minimumInteritemSpacing) / 2.0;
+    
+    [self.darkMenuLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.darkMenuSwitch);
+        make.left.equalTo(self.view.mas_centerX).with.offset(-centerOffset);
+        make.right.equalTo(self.darkMenuSwitch.mas_left);
+        make.height.mas_equalTo(20.0);
+    }];
+    
+    [self.darkMenuSwitch mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).with.offset(85.0);
+        make.right.equalTo(self.view.mas_centerX).with.offset(centerOffset);
+    }];
+    
     [self.collectionView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).with.offset(80.0);
+        make.top.equalTo(self.view).with.offset(135.0);
         make.left.right.bottom.equalTo(self.view);
     }];
 }
@@ -90,6 +123,13 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"darkMenu"] != nil) {
+        self.darkMenuSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:@"darkMenu"];
+    }
+    else {
+        self.darkMenuSwitch.on = NO;
+    }
+
     int selectedIndex = -1;
     for (int i = 0; i < self.colors.count; i++) {
         if ([self.colors[i] isEqualToColor:UIColor.slideMainColor]) selectedIndex = i;
@@ -111,10 +151,23 @@
     }
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.collectionView flashScrollIndicators];
+}
+
+- (void)setDarkMenu:(id)sender {
+    ((SlideRootViewController *)self.navigationController).navigationBarTransparent = ![sender isOn];
+    [(SlideRootViewController *)self.navigationController
+        updateNavigationControllerColorsWithColor:UIColor.slideMainColor];
+    [[NSUserDefaults standardUserDefaults] setBool:[sender isOn] forKey:@"darkMenu"];
+}
+
 - (void)setGameColor:(UIColor *)color {
     [[NSUserDefaults standardUserDefaults] setColor:color forKey:@"mainColor"];
     [(SlideRootViewController *)self.navigationController
         updateNavigationControllerColorsWithColor:color];
+    self.darkMenuSwitch.onTintColor = color;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -127,7 +180,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell =
-        [collectionView dequeueReusableCellWithReuseIdentifier:@"colorCell" forIndexPath:indexPath];
+        [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     if (!cell) cell = [UICollectionViewCell new];
     
     [cell.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
