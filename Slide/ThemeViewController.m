@@ -123,12 +123,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"darkMenu"] != nil) {
-        self.darkMenuSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:@"darkMenu"];
-    }
-    else {
-        self.darkMenuSwitch.on = NO;
-    }
+    self.darkMenuSwitch.on = !self.navigationController.navigationBar.translucent;
 
     int selectedIndex = -1;
     for (int i = 0; i < self.colors.count; i++) {
