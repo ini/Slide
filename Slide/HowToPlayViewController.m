@@ -43,7 +43,7 @@
         
         self.titleLabel = [UILabel new];
         self.titleLabel.text = PageContentViewController.pageTitles[self.index];
-        self.titleLabel.textColor = UIColor.slideMainColor;
+        self.titleLabel.textColor = UIColor.slideBlue;
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
         self.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:24.0];
         self.titleLabel.numberOfLines = 2;
@@ -61,7 +61,7 @@
         self.letsPlayButton.titleLabel.font =
             [UIFont fontWithName:@"HelveticaNeue-Medium" size:22.0];
         [self.letsPlayButton setTitle:@"Let's Play" forState:UIControlStateNormal];
-        [self.letsPlayButton setTitleColor:UIColor.slideMainColor forState:UIControlStateNormal];
+        [self.letsPlayButton setTitleColor:UIColor.slideBlue forState:UIControlStateNormal];
         [self.letsPlayButton addTarget:self
                        action:@selector(showMainMenu)
              forControlEvents:UIControlEventTouchUpInside];

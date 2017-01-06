@@ -6,6 +6,7 @@
 #import "Masonry.h"
 #import "OptionsViewController.h"
 #import "SlideButton.h"
+#import "Slide-Swift.h"
 #import "UIColor+Slide.h"
 
 

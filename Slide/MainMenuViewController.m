@@ -9,6 +9,7 @@
 @property SlideButton *playGameButton;
 @property SlideButton *practiceModeButton;
 @property SlideButton *optionsButton;
+@property MMSlidingButton *button;
 
 @end
 
@@ -20,6 +21,9 @@
     
     if (self) {
         self.view.backgroundColor = UIColor.whiteColor;
+        
+        self.button = [MMSlidingButton new];
+        self.button.backgroundColor = UIColor.greenColor;
         
         self.titleLabel = [UILabel new];
         self.titleLabel.text = @"Slide";
@@ -68,6 +72,13 @@
 
 - (void)updateViewConstraints {
     [super updateViewConstraints];
+    
+    [self.button mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view.mas_centerX);
+        make.top.equalTo(self.optionsButton.mas_bottom).with.offset(15.0);
+        make.width.mas_equalTo(350.0);
+        make.height.mas_equalTo(35.0);
+    }];
 
     [self.titleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view.mas_centerX);

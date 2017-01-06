@@ -43,6 +43,9 @@
     return [UIColor colorWithRed:252.0/255.0 green:23.0/255.0 blue:130.0/255.0 alpha:1.0];
 }
 
++ (UIColor *)slideBlack {
+    return [UIColor colorWithRed:36.0/255.0 green:42.0/255.0 blue:44.0/255.0 alpha:1.0];
+}
 
 + (UIColor *)slideGrey {
     return [UIColor colorWithRed:238.0/255.0 green:238.0/255.0 blue:238.0/255.0 alpha:1.0];

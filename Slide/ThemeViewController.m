@@ -54,7 +54,7 @@
         self.automaticallyAdjustsScrollViewInsets = NO;
         self.view.backgroundColor = UIColor.whiteColor;
         
-        self.colors = @[UIColor.slideBlue, UIColor.slideRed, UIColor.slideGreen, UIColor.slidePink, UIColor.blackColor];
+        self.colors = @[UIColor.slideBlue, UIColor.slideRed, UIColor.slideGreen, UIColor.slidePink, UIColor.slideBlack];
         self.colorNames = @[@"Blue", @"Red", @"Green", @"Pink", @"Black"];
 
         self.darkMenuLabel = [UILabel new];

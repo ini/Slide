@@ -18,7 +18,6 @@
     else {
         rvc = [SlideRootViewController new];
     }
-    
     self.window.rootViewController = rvc;
     [self.window makeKeyAndVisible];
 

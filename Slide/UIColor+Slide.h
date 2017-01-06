@@ -18,6 +18,7 @@
 + (UIColor *)slideRed;
 + (UIColor *)slideGreen;
 + (UIColor *)slidePink;
++ (UIColor *)slideBlack;
 + (UIColor *)slideGrey;
 + (UIColor *)slideDarkGrey;
 - (BOOL)isEqualToColor:(UIColor *)otherColor;

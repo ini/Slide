@@ -9,9 +9,25 @@ typedef enum SlideButtonHighlightStyle : NSUInteger {
     SlideButtonHighlightStyleBackground
 } SlideButtonHighlightStyle;
 
+
 @interface SlideButton : UIButton
 
 @property UIView *highlightMask;
 @property SlideButtonHighlightStyle highlightStyle;
+
+@end
+
+
+@class SlidingButton;
+
+@protocol SlidingButtonDelegate <NSObject>
+
+- (void)setButtonStatus:(NSString *)status sender:(SlidingButton *)sender;
+
+@end
+
+@interface SlidingButton : UIView
+
+@property id<SlidingButtonDelegate> delegate;
 
 @end
