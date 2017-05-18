@@ -578,9 +578,8 @@
 }
 
 - (void)quit {
-    MainMenuViewController *mainMenuScreen = [MainMenuViewController new];
-    [mainMenuScreen setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
-    [self presentViewController:mainMenuScreen animated:YES completion:nil];
+    SlideRootViewController *viewController = [SlideRootViewController new];
+    [self presentViewController:viewController animated:YES completion:nil];
 }
 
 - (BOOL)updateHighScoreWithTime:(float)time andMoveCount:(int)numMoves {
