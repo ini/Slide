@@ -3,6 +3,7 @@
 #import "GridView.h"
 
 CGFloat const blockInset = 10.0f;
+UISwipeGestureRecognizerDirection UISwipeGestureRecognizerDirectionNone = -1;
 
 
 @interface BlockView : UIView
@@ -210,46 +211,38 @@ CGFloat const blockInset = 10.0f;
 
 - (void)tapLocationAtRow:(int)row andCol:(int)col {
     NSMutableArray *blocksToMove = [NSMutableArray array];
-    UISwipeGestureRecognizerDirection direction;
+    UISwipeGestureRecognizerDirection direction = [self getDirectionForRow:row andCol:col];
     
-    if (row == self.emptySquareRow) {
-        if (col < self.emptySquareCol) {
-            direction = UISwipeGestureRecognizerDirectionRight;
-            for (int c = col; c < self.emptySquareCol; c++) {
-                if ([self isValidIndex:row andCol:c]) {
-                    [blocksToMove addObject:self.grid[row][c]];
-                }
-            }
-        }
-        else if (col > self.emptySquareCol) {
-            direction = UISwipeGestureRecognizerDirectionLeft;
-            for (int c = self.emptySquareCol + 1; c <= col; c++) {
-                if ([self isValidIndex:row andCol:c]) {
-                    [blocksToMove addObject:self.grid[row][c]];
-                }
+    if (direction == UISwipeGestureRecognizerDirectionRight) {
+        for (int c = col; c < self.emptySquareCol; c++) {
+            if ([self isValidIndex:row andCol:c]) {
+                [blocksToMove addObject:self.grid[row][c]];
             }
         }
     }
-    else if (col == self.emptySquareCol) {
-        if (row < self.emptySquareRow) {
-            direction = UISwipeGestureRecognizerDirectionDown;
-            for (int r = row; r < self.emptySquareRow; r++) {
-                if ([self isValidIndex:r andCol:col]) {
-                    [blocksToMove addObject:self.grid[r][col]];
-                }
+    else if (direction == UISwipeGestureRecognizerDirectionLeft) {
+        for (int c = self.emptySquareCol + 1; c <= col; c++) {
+            if ([self isValidIndex:row andCol:c]) {
+                [blocksToMove addObject:self.grid[row][c]];
             }
         }
-        else if (row > self.emptySquareRow) {
-            direction = UISwipeGestureRecognizerDirectionUp;
-            for (int r = row; r > self.emptySquareRow; r--) {
-                if ([self isValidIndex:r andCol:col]) {
-                    [blocksToMove addObject:self.grid[r][col]];
-                }
+    }
+    else if (direction == UISwipeGestureRecognizerDirectionDown) {
+        for (int r = row; r < self.emptySquareRow; r++) {
+            if ([self isValidIndex:r andCol:col]) {
+                [blocksToMove addObject:self.grid[r][col]];
+            }
+        }
+    }
+    else if (direction == UISwipeGestureRecognizerDirectionUp) {
+        for (int r = row; r > self.emptySquareRow; r--) {
+            if ([self isValidIndex:r andCol:col]) {
+                [blocksToMove addObject:self.grid[r][col]];
             }
         }
     }
     
-    if (direction && blocksToMove.count > 0) {
+    if (direction != UISwipeGestureRecognizerDirectionNone && blocksToMove.count > 0) {
         [self moveBlocks:blocksToMove inDirection:direction];
         self.emptySquareRow = row;
         self.emptySquareCol = col;
@@ -296,25 +289,29 @@ CGFloat const blockInset = 10.0f;
     if (self.isSolved) self.userInteractionEnabled = NO;
 }
 
-- (BOOL)checkDirection:(UISwipeGestureRecognizerDirection)direction forRow:(int)row andCol:(int)col {
+- (UISwipeGestureRecognizerDirection)getDirectionForRow:(int)row andCol:(int)col {
     if (row == self.emptySquareRow) {
         if (col > self.emptySquareCol) {
-            return direction == UISwipeGestureRecognizerDirectionLeft;
+            return UISwipeGestureRecognizerDirectionLeft;
         }
         else if (col < self.emptySquareCol) {
-            return direction == UISwipeGestureRecognizerDirectionRight;
+            return UISwipeGestureRecognizerDirectionRight;
         }
     }
     else if (col == self.emptySquareCol) {
         if (row > self.emptySquareRow) {
-            return direction == UISwipeGestureRecognizerDirectionUp;
+            return UISwipeGestureRecognizerDirectionUp;
         }
         else if (row < self.emptySquareRow) {
-            return direction == UISwipeGestureRecognizerDirectionDown;
+            return UISwipeGestureRecognizerDirectionDown;
         }
     }
-        
-    return NO;
+    
+    return UISwipeGestureRecognizerDirectionNone;
+}
+
+- (BOOL)checkDirection:(UISwipeGestureRecognizerDirection)direction forRow:(int)row andCol:(int)col {
+    return [self getDirectionForRow:row andCol:col] == direction;
 }
 
 #pragma mark - Grid Scrambling

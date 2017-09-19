@@ -23,7 +23,6 @@
 		8939FFB71E1324390013C40F /* OptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8939FFB61E1324390013C40F /* OptionsViewController.m */; };
 		8939FFBA1E1374210013C40F /* GameOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8939FFB91E1374210013C40F /* GameOptionsViewController.m */; };
 		893CE89819804C610005EBC6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 893CE89719804C610005EBC6 /* QuartzCore.framework */; };
-		894048BF1E1FCA1000471BA5 /* MMSlidingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894048BE1E1FCA1000471BA5 /* MMSlidingButton.swift */; };
 		8953D7DB1E0F854200491D76 /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8953D7DA1E0F854200491D76 /* MainMenuViewController.m */; };
 		8953D7FA1E0F881100491D76 /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 8953D7E11E0F881100491D76 /* MASCompositeConstraint.m */; };
 		8953D7FB1E0F881100491D76 /* MASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 8953D7E41E0F881100491D76 /* MASConstraint.m */; };
@@ -95,7 +94,6 @@
 		8939FFB91E1374210013C40F /* GameOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOptionsViewController.m; sourceTree = "<group>"; };
 		893CE89719804C610005EBC6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		894048BD1E1FCA0F00471BA5 /* Slide-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Slide-Bridging-Header.h"; sourceTree = "<group>"; };
-		894048BE1E1FCA1000471BA5 /* MMSlidingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMSlidingButton.swift; sourceTree = "<group>"; };
 		8953D7D91E0F854200491D76 /* MainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuViewController.h; sourceTree = "<group>"; };
 		8953D7DA1E0F854200491D76 /* MainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuViewController.m; sourceTree = "<group>"; };
 		8953D7E01E0F881100491D76 /* MASCompositeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASCompositeConstraint.h; sourceTree = "<group>"; };
@@ -281,7 +279,6 @@
 				8939008C1E14C4370013C40F /* HowToPlayViewController.m */,
 				8953D7D91E0F854200491D76 /* MainMenuViewController.h */,
 				8953D7DA1E0F854200491D76 /* MainMenuViewController.m */,
-				894048BE1E1FCA1000471BA5 /* MMSlidingButton.swift */,
 				8939FFB51E1324390013C40F /* OptionsViewController.h */,
 				8939FFB61E1324390013C40F /* OptionsViewController.m */,
 				89BA80FF1E15D397008BCCD9 /* PracticeOptionsViewController.h */,
@@ -410,7 +407,7 @@
 		89C8385F197B191900D4F276 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = Insi;
 				TargetAttributes = {
 					89C83866197B191900D4F276 = {
@@ -592,7 +589,6 @@
 				89E0C49A1E112DF9001DA39A /* UIColor+Slide.m in Sources */,
 				8953D8011E0F881100491D76 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				89D21EBA1E177B2E00494D03 /* SlideRootViewController.m in Sources */,
-				894048BF1E1FCA1000471BA5 /* MMSlidingButton.swift in Sources */,
 				89C8387B197B191900D4F276 /* AppDelegate.m in Sources */,
 				8953D8001E0F881100491D76 /* NSArray+MASAdditions.m in Sources */,
 				893900A01E15B6640013C40F /* GameViewController.m in Sources */,
@@ -721,6 +717,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -818,7 +815,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2F8004C473B9091453A7AB01 /* Pods-SlideTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Slide.app/Slide";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -843,7 +839,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 89CC6837251C139F9EC0E1A8 /* Pods-SlideTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Slide.app/Slide";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
