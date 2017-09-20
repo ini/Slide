@@ -7,11 +7,10 @@
 
 @property SlideButton *resetGameButton;
 @property SlideButton *howToPlayButton;
+@property SlideButton *practiceModeButton;
 @property SlideButton *gameCenterButton;
 @property SlideButton *themeButton;
 @property SlideButton *creditsButton;
-
-@property UIView *creditsView;
 
 @end
 
@@ -46,7 +45,18 @@
                                  action:@selector(showHowToPlay)
                        forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:self.howToPlayButton];
-
+        
+        self.practiceModeButton = [SlideButton new];
+        self.practiceModeButton.backgroundColor = UIColor.slideGrey;
+        self.practiceModeButton.layer.cornerRadius = 10.0;
+        self.practiceModeButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:23.0];
+        [self.practiceModeButton setTitle:@"Practice Mode" forState:UIControlStateNormal];
+        [self.practiceModeButton setTitleColor:UIColor.slideMainColor forState:UIControlStateNormal];
+        [self.practiceModeButton addTarget:self
+                                  action:@selector(showPracticeMode)
+                        forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:self.practiceModeButton];
+        
         self.gameCenterButton = [SlideButton new];
         self.gameCenterButton.backgroundColor = UIColor.slideGrey;
         self.gameCenterButton.layer.cornerRadius = 10.0;
@@ -100,8 +110,13 @@
         make.centerX.width.height.equalTo(self.resetGameButton);
     }];
     
-    [self.gameCenterButton mas_remakeConstraints:^(MASConstraintMaker *make) {
+    [self.practiceModeButton mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.howToPlayButton.mas_bottom).with.offset(8.0);
+        make.centerX.width.height.equalTo(self.resetGameButton);
+    }];
+    
+    [self.gameCenterButton mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.practiceModeButton.mas_bottom).with.offset(8.0);
         make.centerX.width.height.equalTo(self.resetGameButton);
     }];
     
@@ -156,6 +171,11 @@
 - (void)showHowToPlay {
     HowToPlayViewController *howToPlayScreen = [HowToPlayViewController new];
     [self presentViewController:howToPlayScreen animated:YES completion:nil];
+}
+
+- (void)showPracticeMode {
+    PracticeChooserViewController *practiceChooserScreen = [PracticeChooserViewController new];
+    [self.navigationController pushViewController:practiceChooserScreen animated:YES];
 }
 
 - (void)showGameCenter {

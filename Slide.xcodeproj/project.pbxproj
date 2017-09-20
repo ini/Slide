@@ -11,6 +11,7 @@
 		5D0CF46ACA5083ED5ED5FF06 /* libPods-Slide.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C0227339435B883A9B97651C /* libPods-Slide.a */; };
 		891C8E9619A700FC0004CD57 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 891C8E9519A700FC0004CD57 /* GameKit.framework */; };
 		891EDF6E1E0F98E3003C0575 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 891EDF6D1E0F98E3003C0575 /* Launch Screen.storyboard */; };
+		892D241F1F72502F004AB4E7 /* gear_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 892D241E1F72502F004AB4E7 /* gear_icon.png */; };
 		893900841E14A1790013C40F /* SlideButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 893900831E14A1790013C40F /* SlideButton.m */; };
 		8939008A1E14BC7D0013C40F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 893900891E14BC7D0013C40F /* GoogleService-Info.plist */; };
 		8939008D1E14C4370013C40F /* HowToPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8939008C1E14C4370013C40F /* HowToPlayViewController.m */; };
@@ -37,7 +38,6 @@
 		89BA81011E15D397008BCCD9 /* PracticeOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89BA81001E15D397008BCCD9 /* PracticeOptionsViewController.m */; };
 		89BBC6531F7178EE00EF85A1 /* PlayGameSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 89BBC6521F7178EE00EF85A1 /* PlayGameSlider.m */; };
 		89BBC6631F72401200EF85A1 /* play_game_slider_thumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 89BBC6621F72401200EF85A1 /* play_game_slider_thumb.png */; };
-		89BBC6651F72496000EF85A1 /* gears_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 89BBC6641F72496000EF85A1 /* gears_icon.png */; };
 		89C8386B197B191900D4F276 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89C8386A197B191900D4F276 /* Foundation.framework */; };
 		89C8386D197B191900D4F276 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89C8386C197B191900D4F276 /* CoreGraphics.framework */; };
 		89C8386F197B191900D4F276 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89C8386E197B191900D4F276 /* UIKit.framework */; };
@@ -78,6 +78,7 @@
 		786B397B26635A224DE4CFE2 /* libPods-SlideTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SlideTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		891C8E9519A700FC0004CD57 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		891EDF6D1E0F98E3003C0575 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "../Launch Screen.storyboard"; sourceTree = "<group>"; };
+		892D241E1F72502F004AB4E7 /* gear_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gear_icon.png; sourceTree = "<group>"; };
 		893900821E14A1790013C40F /* SlideButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideButton.h; sourceTree = "<group>"; };
 		893900831E14A1790013C40F /* SlideButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideButton.m; sourceTree = "<group>"; };
 		893900891E14BC7D0013C40F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -128,7 +129,6 @@
 		89BBC6511F7178EE00EF85A1 /* PlayGameSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayGameSlider.h; sourceTree = "<group>"; };
 		89BBC6521F7178EE00EF85A1 /* PlayGameSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayGameSlider.m; sourceTree = "<group>"; };
 		89BBC6621F72401200EF85A1 /* play_game_slider_thumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_game_slider_thumb.png; sourceTree = "<group>"; };
-		89BBC6641F72496000EF85A1 /* gears_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gears_icon.png; sourceTree = "<group>"; };
 		89C83867197B191900D4F276 /* Slide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Slide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89C8386A197B191900D4F276 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		89C8386C197B191900D4F276 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -350,7 +350,7 @@
 				8939009C1E1517590013C40F /* howToPage3.png */,
 				893900911E1507F40013C40F /* howToPage4.png */,
 				89BBC6621F72401200EF85A1 /* play_game_slider_thumb.png */,
-				89BBC6641F72496000EF85A1 /* gears_icon.png */,
+				892D241E1F72502F004AB4E7 /* gear_icon.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -466,13 +466,13 @@
 				893900951E1507F40013C40F /* howToPage4.png in Resources */,
 				89D21EBC1E18BF1200494D03 /* easy.png in Resources */,
 				89C83875197B191900D4F276 /* InfoPlist.strings in Resources */,
+				892D241F1F72502F004AB4E7 /* gear_icon.png in Resources */,
 				89D21EBE1E18D1E700494D03 /* medium.png in Resources */,
 				89BBC6631F72401200EF85A1 /* play_game_slider_thumb.png in Resources */,
 				8939009D1E1517590013C40F /* howToPage3.png in Resources */,
 				89D21EC41E18D73600494D03 /* hard.png in Resources */,
 				8939008A1E14BC7D0013C40F /* GoogleService-Info.plist in Resources */,
 				893900971E1509190013C40F /* howToPage1.png in Resources */,
-				89BBC6651F72496000EF85A1 /* gears_icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

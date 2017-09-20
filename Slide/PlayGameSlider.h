@@ -10,9 +10,7 @@
 @interface PlayGameSlider : UIView
     
 @property UISlider* slider;
-@property UILabel* label;
 @property id <PlayGameSliderDelegate> delegate;
-@property BOOL touchIsDown;
 
 - (void)reset;
 

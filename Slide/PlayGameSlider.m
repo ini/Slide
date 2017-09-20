@@ -5,7 +5,7 @@
 @interface PlayGameSlider ()
 
 @property UIView *sliderBackground;
-@property UIImageView *sliderThumbImageView;
+@property UILabel* label;
 
 @end
 
@@ -48,11 +48,14 @@
         self.slider.value = 0.0;
         
         [self.slider addTarget:self
+                        action:@selector(sliderDragExit:)
+              forControlEvents:UIControlEventTouchDragExit];
+        [self.slider addTarget:self
                         action:@selector(sliderUp:)
               forControlEvents:UIControlEventTouchUpInside];
         [self.slider addTarget:self
-                        action:@selector(sliderDown:)
-              forControlEvents:UIControlEventTouchDown];
+                        action:@selector(sliderUp:)
+              forControlEvents:UIControlEventTouchUpOutside];
         [self.slider addTarget:self
                         action:@selector(sliderChanged:)
               forControlEvents:UIControlEventValueChanged];
@@ -96,10 +99,6 @@
         make.left.right.equalTo(self.sliderBackground).inset(4.0);
     }];
     
-    [self.sliderThumbImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.sliderBackground);
-    }];
-    
     [self.label mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.slider).with.offset(self.slider.currentThumbImage.size.width / 2);
         make.centerY.equalTo(self.slider);
@@ -109,22 +108,20 @@
 
 # pragma mark Slider Events
 
-- (void)sliderUp: (UISlider *) sender {
-    if (self.touchIsDown) {
-        self.touchIsDown = NO;
-        
-        if (self.slider.value != 1.0) {
-            [self.slider setValue: 0 animated: YES];
-            self.label.alpha = 1.0;
-        }
-        else {
-            [self.delegate unlocked];
-        }
+- (void)sliderDragExit: (UISlider *) sender {
+    if (self.slider.value == 1.0) {
+        [self.delegate unlocked];
     }
 }
 
-- (void)sliderDown: (UISlider *) sender {
-    self.touchIsDown = YES;
+- (void)sliderUp: (UISlider *) sender {
+    if (self.slider.value != 1.0) {
+            [self.slider setValue: 0 animated: YES];
+            self.label.alpha = 1.0;
+    }
+    else {
+        [self.delegate unlocked];
+    }
 }
 
 - (void)sliderChanged: (UISlider *) sender {
@@ -140,7 +137,6 @@
 - (void)reset {
     self.slider.value = 0.0;
     self.label.alpha = 1.0;
-    self.touchIsDown = NO;
 }
 
 # pragma mark Static Helper Functions

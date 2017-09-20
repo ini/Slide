@@ -53,7 +53,7 @@
         [self.gridContainerView addSubview:self.grid];
         
         self.adBanner = [[GADBannerView alloc] initWithAdSize:kGADAdSizeSmartBannerPortrait];
-        // [self.view addSubview:self.adBanner];
+        [self.view addSubview:self.adBanner];
         
         // Disable multiple touches
         [self.view.subviews makeObjectsPerformSelector:@selector(setExclusiveTouch:)

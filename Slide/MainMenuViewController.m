@@ -7,9 +7,7 @@
 
 @property UILabel *titleLabel;
 @property PlayGameSlider *playGameSlider;
-@property SlideButton *playGameButton;
-@property SlideButton *practiceModeButton;
-@property SlideButton *optionsButton;
+@property UIButton *optionsButton;
 
 @end
 
@@ -33,43 +31,16 @@
         self.playGameSlider = [PlayGameSlider new];
         self.playGameSlider.delegate = self;
         [self.view addSubview:self.playGameSlider];
-
-        self.playGameButton = [SlideButton new];
-        self.playGameButton.highlightStyle = SlideButtonHighlightStyleText;
-        [self.playGameButton setTitle:@"Play Game" forState:UIControlStateNormal];
-        [self.playGameButton setTitleColor:UIColor.slideMainColor forState:UIControlStateNormal];
-        self.playGameButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:22.0];
-        self.playGameButton.titleLabel.textAlignment = NSTextAlignmentCenter;
-        [self.playGameButton addTarget:self
-                                action:@selector(presentDifficultyScreen)
-                      forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:self.playGameButton];
         
-        self.practiceModeButton = [SlideButton new];
-        self.practiceModeButton.highlightStyle = SlideButtonHighlightStyleText;
-        [self.practiceModeButton setTitle:@"Practice Mode" forState:UIControlStateNormal];
-        [self.practiceModeButton setTitleColor:UIColor.slideMainColor forState:UIControlStateNormal];
-        self.practiceModeButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:22.0];
-        self.practiceModeButton.titleLabel.textAlignment = NSTextAlignmentCenter;
-        [self.practiceModeButton addTarget:self
-                                    action:@selector(presentPracticeModeScreen)
-                          forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:self.practiceModeButton];
-        
-        self.optionsButton = [SlideButton new];
-        self.optionsButton.highlightStyle = SlideButtonHighlightStyleText;
-        [self.optionsButton setTitle:@"Options" forState:UIControlStateNormal];
-        [self.optionsButton setTitleColor:UIColor.slideMainColor forState:UIControlStateNormal];
-        self.optionsButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:22.0];
-        self.optionsButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+        self.optionsButton = [UIButton new];
+        [self.optionsButton setImage:[[UIImage imageNamed:@"gear_icon.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]
+                            forState:UIControlStateNormal];
+        [self.optionsButton.imageView setTintColor:UIColor.slideDarkGrey];
         [self.optionsButton addTarget:self
                                 action:@selector(presentOptionsScreen)
                       forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:self.optionsButton];
         
-        self.playGameButton.hidden = YES;
-        self.practiceModeButton.hidden = YES;
-        self.optionsButton.hidden = YES;
         [self updateViewConstraints];
     }
     return self;
@@ -92,22 +63,9 @@
         make.height.mas_equalTo(70.0);
     }];
     
-    [self.playGameButton mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view.mas_centerX);
-        make.centerY.equalTo(self.view.mas_centerY).with.offset(-35.0);
-        make.height.mas_equalTo(35.0);
-    }];
-
-    [self.practiceModeButton mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view.mas_centerX);
-        make.top.equalTo(self.playGameButton.mas_bottom).with.offset(15.0);
-        make.height.mas_equalTo(35.0);
-    }];
-    
     [self.optionsButton mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view.mas_centerX);
-        make.top.equalTo(self.practiceModeButton.mas_bottom).with.offset(15.0);
-        make.height.mas_equalTo(35.0);
+        make.bottom.right.equalTo(self.view).inset(10.0);
+        make.width.height.mas_equalTo(35.0);
     }];
 }
 
@@ -157,11 +115,6 @@
 - (void)presentDifficultyScreen {
     DifficultyViewController *difficultyScreen = [DifficultyViewController new];
     [self.navigationController pushViewController:difficultyScreen animated:YES];
-}
-
-- (void)presentPracticeModeScreen {
-    PracticeChooserViewController *practiceChooserScreen = [PracticeChooserViewController new];
-    [self.navigationController pushViewController:practiceChooserScreen animated:YES];
 }
 
 - (void)presentOptionsScreen {
