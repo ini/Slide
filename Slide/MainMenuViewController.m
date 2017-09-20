@@ -6,6 +6,7 @@
 @interface MainMenuViewController ()
 
 @property UILabel *titleLabel;
+@property PlayGameSlider *playGameSlider;
 @property SlideButton *playGameButton;
 @property SlideButton *practiceModeButton;
 @property SlideButton *optionsButton;
@@ -20,6 +21,7 @@
     
     if (self) {
         self.view.backgroundColor = UIColor.whiteColor;
+        self.shouldPerformSliderBounceAnimation = NO;
         
         self.titleLabel = [UILabel new];
         self.titleLabel.text = @"Slide";
@@ -27,6 +29,10 @@
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
         self.titleLabel.textColor = UIColor.slideMainColor;
         [self.view addSubview:self.titleLabel];
+        
+        self.playGameSlider = [PlayGameSlider new];
+        self.playGameSlider.delegate = self;
+        [self.view addSubview:self.playGameSlider];
 
         self.playGameButton = [SlideButton new];
         self.playGameButton.highlightStyle = SlideButtonHighlightStyleText;
@@ -61,6 +67,9 @@
                       forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:self.optionsButton];
         
+        self.playGameButton.hidden = YES;
+        self.practiceModeButton.hidden = YES;
+        self.optionsButton.hidden = YES;
         [self updateViewConstraints];
     }
     return self;
@@ -71,14 +80,21 @@
 
     [self.titleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view.mas_centerX);
-        make.top.equalTo(self.view.mas_top).with.offset(28.0);
+        make.top.equalTo(self.view.mas_top).with.offset(32.0);
         make.width.mas_equalTo(320.0);
         make.height.mas_equalTo(124.0);
     }];
     
+    [self.playGameSlider mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view.mas_centerX);
+        make.centerY.equalTo(self.view).with.offset(30.0);
+        make.left.right.equalTo(self.view).inset(20.0);
+        make.height.mas_equalTo(70.0);
+    }];
+    
     [self.playGameButton mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view.mas_centerX);
-        make.centerY.equalTo(self.view.mas_centerY).with.offset(-32.0);
+        make.centerY.equalTo(self.view.mas_centerY).with.offset(-35.0);
         make.height.mas_equalTo(35.0);
     }];
 
@@ -99,6 +115,17 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [self initGameCenter];
+    [self.playGameSlider reset];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    if ([self isBeingPresented] || [self isMovingToParentViewController]) {
+        if (self.shouldPerformSliderBounceAnimation) {
+            [self performSliderBounceAnimation];
+        }
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -140,6 +167,27 @@
 - (void)presentOptionsScreen {
     OptionsViewController *optionsScreen = [OptionsViewController new];
     [self.navigationController pushViewController:optionsScreen animated:YES];
+}
+
+- (void)performSliderBounceAnimation {
+    [UIView animateWithDuration:0.2 animations:^{
+        [self.playGameSlider.slider setValue:0.2 animated:YES];
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.3
+                              delay:0
+             usingSpringWithDamping:0.2
+              initialSpringVelocity:5.0
+                            options:UIViewAnimationOptionCurveLinear
+                         animations:^{
+                             [self.playGameSlider.slider setValue:0 animated:YES];
+                         } completion:nil];
+    }];
+}
+
+# pragma mark PlayGameSliderDelegate
+
+- (void)unlocked {
+    [self presentDifficultyScreen];
 }
 
 @end

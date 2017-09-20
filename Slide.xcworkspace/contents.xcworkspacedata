@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:Slide/PlayGameSlider.h">
+   </FileRef>
+   <FileRef
+      location = "group:Slide/PlayGameSlider.m">
+   </FileRef>
+   <FileRef
       location = "group:Slide.xcodeproj">
    </FileRef>
    <FileRef

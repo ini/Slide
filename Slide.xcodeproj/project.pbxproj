@@ -35,6 +35,9 @@
 		8953D8021E0F881100491D76 /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8953D7F51E0F881100491D76 /* View+MASAdditions.m */; };
 		8953D8031E0F881100491D76 /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8953D7F81E0F881100491D76 /* ViewController+MASAdditions.m */; };
 		89BA81011E15D397008BCCD9 /* PracticeOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89BA81001E15D397008BCCD9 /* PracticeOptionsViewController.m */; };
+		89BBC6531F7178EE00EF85A1 /* PlayGameSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 89BBC6521F7178EE00EF85A1 /* PlayGameSlider.m */; };
+		89BBC6631F72401200EF85A1 /* play_game_slider_thumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 89BBC6621F72401200EF85A1 /* play_game_slider_thumb.png */; };
+		89BBC6651F72496000EF85A1 /* gears_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 89BBC6641F72496000EF85A1 /* gears_icon.png */; };
 		89C8386B197B191900D4F276 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89C8386A197B191900D4F276 /* Foundation.framework */; };
 		89C8386D197B191900D4F276 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89C8386C197B191900D4F276 /* CoreGraphics.framework */; };
 		89C8386F197B191900D4F276 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89C8386E197B191900D4F276 /* UIKit.framework */; };
@@ -93,7 +96,6 @@
 		8939FFB81E1374210013C40F /* GameOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOptionsViewController.h; sourceTree = "<group>"; };
 		8939FFB91E1374210013C40F /* GameOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOptionsViewController.m; sourceTree = "<group>"; };
 		893CE89719804C610005EBC6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		894048BD1E1FCA0F00471BA5 /* Slide-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Slide-Bridging-Header.h"; sourceTree = "<group>"; };
 		8953D7D91E0F854200491D76 /* MainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuViewController.h; sourceTree = "<group>"; };
 		8953D7DA1E0F854200491D76 /* MainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuViewController.m; sourceTree = "<group>"; };
 		8953D7E01E0F881100491D76 /* MASCompositeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASCompositeConstraint.h; sourceTree = "<group>"; };
@@ -123,6 +125,10 @@
 		8953D7F81E0F881100491D76 /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+MASAdditions.m"; sourceTree = "<group>"; };
 		89BA80FF1E15D397008BCCD9 /* PracticeOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PracticeOptionsViewController.h; sourceTree = "<group>"; };
 		89BA81001E15D397008BCCD9 /* PracticeOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PracticeOptionsViewController.m; sourceTree = "<group>"; };
+		89BBC6511F7178EE00EF85A1 /* PlayGameSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayGameSlider.h; sourceTree = "<group>"; };
+		89BBC6521F7178EE00EF85A1 /* PlayGameSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayGameSlider.m; sourceTree = "<group>"; };
+		89BBC6621F72401200EF85A1 /* play_game_slider_thumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_game_slider_thumb.png; sourceTree = "<group>"; };
+		89BBC6641F72496000EF85A1 /* gears_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gears_icon.png; sourceTree = "<group>"; };
 		89C83867197B191900D4F276 /* Slide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Slide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89C8386A197B191900D4F276 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		89C8386C197B191900D4F276 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -281,6 +287,8 @@
 				8953D7DA1E0F854200491D76 /* MainMenuViewController.m */,
 				8939FFB51E1324390013C40F /* OptionsViewController.h */,
 				8939FFB61E1324390013C40F /* OptionsViewController.m */,
+				89BBC6511F7178EE00EF85A1 /* PlayGameSlider.h */,
+				89BBC6521F7178EE00EF85A1 /* PlayGameSlider.m */,
 				89BA80FF1E15D397008BCCD9 /* PracticeOptionsViewController.h */,
 				89BA81001E15D397008BCCD9 /* PracticeOptionsViewController.m */,
 				893900A11E15B6750013C40F /* PracticeViewController.h */,
@@ -297,7 +305,6 @@
 				891EDF6D1E0F98E3003C0575 /* Launch Screen.storyboard */,
 				89DE7DB819AD84AC0054A5C6 /* Images */,
 				89C83871197B191900D4F276 /* Supporting Files */,
-				894048BD1E1FCA0F00471BA5 /* Slide-Bridging-Header.h */,
 			);
 			path = Slide;
 			sourceTree = "<group>";
@@ -342,6 +349,8 @@
 				8939009A1E150D100013C40F /* howToPage2.png */,
 				8939009C1E1517590013C40F /* howToPage3.png */,
 				893900911E1507F40013C40F /* howToPage4.png */,
+				89BBC6621F72401200EF85A1 /* play_game_slider_thumb.png */,
+				89BBC6641F72496000EF85A1 /* gears_icon.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -458,10 +467,12 @@
 				89D21EBC1E18BF1200494D03 /* easy.png in Resources */,
 				89C83875197B191900D4F276 /* InfoPlist.strings in Resources */,
 				89D21EBE1E18D1E700494D03 /* medium.png in Resources */,
+				89BBC6631F72401200EF85A1 /* play_game_slider_thumb.png in Resources */,
 				8939009D1E1517590013C40F /* howToPage3.png in Resources */,
 				89D21EC41E18D73600494D03 /* hard.png in Resources */,
 				8939008A1E14BC7D0013C40F /* GoogleService-Info.plist in Resources */,
 				893900971E1509190013C40F /* howToPage1.png in Resources */,
+				89BBC6651F72496000EF85A1 /* gears_icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -579,6 +590,7 @@
 				8953D7FA1E0F881100491D76 /* MASCompositeConstraint.m in Sources */,
 				893900841E14A1790013C40F /* SlideButton.m in Sources */,
 				893900A31E15B6750013C40F /* PracticeViewController.m in Sources */,
+				89BBC6531F7178EE00EF85A1 /* PlayGameSlider.m in Sources */,
 				8939FFBA1E1374210013C40F /* GameOptionsViewController.m in Sources */,
 				8953D7FC1E0F881100491D76 /* MASConstraintMaker.m in Sources */,
 				89BA81011E15D397008BCCD9 /* PracticeOptionsViewController.m in Sources */,

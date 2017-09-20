@@ -5,10 +5,13 @@
 #import "GCHelper.h"
 #import "Masonry.h"
 #import "OptionsViewController.h"
+#import "PlayGameSlider.h"
 #import "SlideButton.h"
 #import "UIColor+Slide.h"
 
 
-@interface MainMenuViewController : UIViewController <GKLocalPlayerListener>
+@interface MainMenuViewController : UIViewController <GKLocalPlayerListener, PlayGameSliderDelegate>
+
+@property BOOL shouldPerformSliderBounceAnimation;
 
 @end

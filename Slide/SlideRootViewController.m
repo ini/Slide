@@ -75,6 +75,21 @@ CGFloat const navigationBarHeight = 70.0;
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    // Only allow the slider bounce animation on the main menu page if its navigation controller
+    // was presented from the how to play page, or if the app was just opened.
+    if ([self.presentingViewController isKindOfClass:[HowToPlayViewController class]]
+        || !self.presentingViewController) {
+        for (UIViewController __strong *vc in self.viewControllers) {
+            if ([vc isKindOfClass:[MainMenuViewController class]]) {
+                ((MainMenuViewController *) vc).shouldPerformSliderBounceAnimation = YES;
+            }
+        }
+    }
+}
+
 - (void)updateNavigationControllerColorsWithColor:(UIColor *)color {
     [self setNavigationBarTransparent:self.navigationBarTransparent];
     [self.navigationBar layoutSubviews];
@@ -140,6 +155,7 @@ CGFloat const navigationBarHeight = 70.0;
                                          style:UIBarButtonItemStylePlain
                                         target:nil
                                         action:nil];
+    
 }
 
 @end
